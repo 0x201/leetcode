@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@vitest/coverage-istanbul": "^4.0.7",
+    "@vitest/coverage-v8": "^4.0.7",
+    "@vitest/ui": "^4.0.7",
+    "husky": "^9.1.7",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.7"
+  },
+  "dependencies": {
+    "@datastructures-js/priority-queue": "^6.3.5"
+  }
+}

@@ -1,0 +1,18 @@
+[package]
+name = "leetcode"
+version = "0.1.0"
+authors = ["trickyrat"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/trickyrat/leetcode-rs"
+description = """
+keywords = ["leetcode"]
+categories = ["leetcode"]
+LeetCode solution implemented in Rust.
+"""
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.9.2"
