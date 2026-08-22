@@ -1,7 +1,4 @@
-from typing import Optional, List
-
-
-class Node(object):
-    def __init__(self, val: int = 0, children: Optional[List["Node"]] = []):
+class Node:
+    def __init__(self, val: int = 0, children: list[Node] | None = None):
         self.val: int = val
-        self.children: Optional[List[Node]] = children
+        self.children: list[Node] = children if children is not None else []

@@ -1,18 +1,14 @@
-from collections import deque
-from typing import Optional
+from __future__ import annotations
+
+from dataclasses import dataclass
 
 
-class TreeNode(object):
+@dataclass(slots=True)
+class TreeNode:
     """
     Definition for a binary tree node.
     """
 
-    def __init__(
-        self,
-        val: int = 0,
-        left: Optional["TreeNode"] = None,
-        right: Optional["TreeNode"] = None,
-    ) -> None:
-        self.val: int = val
-        self.left: Optional[TreeNode] = left
-        self.right: Optional[TreeNode] = right
+    val: int = 0
+    left: TreeNode | None = None
+    right: TreeNode | None = None

@@ -1,5 +1,5 @@
-from typing import List, Optional
 import pytest
+
 from src.data_structures.list_node import ListNode
 from src.data_structures.node import Node
 from src.data_structures.tree_node import TreeNode
@@ -17,7 +17,7 @@ class TestSolution:
             ([2, 7, 11, 15], 3, []),
         ],
     )
-    def test_two_sum(self, test_input: List[int], target: int, expected: List[int]):
+    def test_two_sum(self, test_input: list[int], target: int, expected: list[int]):
         actual = Solution.two_sum(test_input, target)
         assert actual == expected
 
@@ -43,8 +43,8 @@ class TestSolution:
     )
     def test_add_two_numbers(
         self,
-        test_input1: Optional[ListNode],
-        test_input2: Optional[ListNode],
+        test_input1: ListNode | None,
+        test_input2: ListNode | None,
         expected: str,
     ):
         head = Solution.add_two_numbers(test_input1, test_input2)
@@ -69,7 +69,7 @@ class TestSolution:
         ],
     )
     def test_find_median_sorted_arrays(
-        self, test_input1: List[int], test_input2: List[int], expected: float
+        self, test_input1: list[int], test_input2: list[int], expected: float
     ):
         actual = Solution.find_median_sorted_arrays(test_input1, test_input2)
         assert expected == actual
@@ -141,7 +141,7 @@ class TestSolution:
     @pytest.mark.parametrize(
         "height, expected", [([1, 8, 6, 2, 5, 4, 8, 3, 7], 49), ([1, 1], 1)]
     )
-    def test_max_area(self, height: List[int], expected: int):
+    def test_max_area(self, height: list[int], expected: int):
         actual = Solution.max_area(height)
         assert expected == actual
 
@@ -168,7 +168,7 @@ class TestSolution:
             (None, ""),
         ],
     )
-    def test_longest_common_prefix(self, strs: List[str], expected: str):
+    def test_longest_common_prefix(self, strs: list[str], expected: str):
         actual = Solution.longest_common_prefix(strs)
         assert expected == actual
 
@@ -184,7 +184,7 @@ class TestSolution:
             (Util.generate_list_node([1, 2]), 1, "1"),
         ],
     )
-    def test_remove_nth_from_end(self, head: Optional[ListNode], n: int, expected: str):
+    def test_remove_nth_from_end(self, head: ListNode | None, n: int, expected: str):
         head = Solution.remove_nth_from_end(head, n)
         actual = Util.list_node_to_string(head)
         assert expected == actual
@@ -207,8 +207,8 @@ class TestSolution:
     )
     def test_merge_two_lists(
         self,
-        list1: Optional[ListNode],
-        list2: Optional[ListNode],
+        list1: ListNode | None,
+        list2: ListNode | None,
         expected: str,
     ):
         head = Solution.merge_two_lists(list1, list2)
@@ -230,7 +230,7 @@ class TestSolution:
             ([Util.generate_list_node([])], ""),
         ],
     )
-    def test_merge_k_lists(self, lists: List[Optional[ListNode]], expected: str):
+    def test_merge_k_lists(self, lists: list[ListNode | None], expected: str):
         head = Solution.merge_k_lists(lists)
         actual = Util.list_node_to_string(head)
         assert expected == actual
@@ -242,7 +242,7 @@ class TestSolution:
             ([0, 0, 1, 1, 1, 2, 2, 3, 3, 4], 5),
         ],
     )
-    def test_remove_duplicates(self, nums: List[int], expected: int):
+    def test_remove_duplicates(self, nums: list[int], expected: int):
         actual = Solution.remove_duplicates(nums)
         assert expected == actual
 
@@ -253,7 +253,7 @@ class TestSolution:
             ([0, 1, 2, 2, 3, 0, 4, 2], 2, 5),
         ],
     )
-    def test_remove_element(self, nums: List[int], val: int, expected: int):
+    def test_remove_element(self, nums: list[int], val: int, expected: int):
         actual = Solution.remove_element(nums, val)
         assert expected == actual
         assert val not in nums[0:actual]
@@ -269,7 +269,7 @@ class TestSolution:
             (["a"], [["a"]]),
         ],
     )
-    def test_group_anagrams(self, strs: List[str], expected: List[List[str]]):
+    def test_group_anagrams(self, strs: list[str], expected: list[list[str]]):
         actual = Solution.group_anagrams(strs)
         assert expected == actual
 
@@ -280,7 +280,7 @@ class TestSolution:
             ([[1, 4], [4, 5]], [[1, 5]]),
         ],
     )
-    def test_merge(self, test_input: List[List[int]], expected: List[List[int]]):
+    def test_merge(self, test_input: list[list[int]], expected: list[list[int]]):
         actual = Solution.merge(test_input)
         assert expected == actual
 
@@ -306,7 +306,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_set_zeroes(self, test_input: List[List[int]], expected: List[List[int]]):
+    def test_set_zeroes(self, test_input: list[list[int]], expected: list[list[int]]):
         Solution.set_zeroes(test_input)
         assert expected == test_input
 
@@ -318,7 +318,7 @@ class TestSolution:
             ([1], 0, -1),
         ],
     )
-    def test_eval(self, test_input: List[int], target: int, expected: int):
+    def test_eval(self, test_input: list[int], target: int, expected: int):
         actual = Solution.search(test_input, target)
         assert expected == actual
 
@@ -331,7 +331,7 @@ class TestSolution:
         ],
     )
     def test_combination_sum(
-        self, candidates: List[int], target: int, expected: List[List[int]]
+        self, candidates: list[int], target: int, expected: list[list[int]]
     ):
         actual = Solution.combination_sum(candidates, target)
         actual.sort()
@@ -345,7 +345,7 @@ class TestSolution:
             ([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 13, False),
         ],
     )
-    def test_search_matrix(self, matrix: List[List[int]], target: int, expected: bool):
+    def test_search_matrix(self, matrix: list[list[int]], target: int, expected: bool):
         actual = Solution.search_matrix(matrix, target)
         assert expected == actual
 
@@ -398,7 +398,7 @@ class TestSolution:
         ],
     )
     def test_path_sum(
-        self, test_input: TreeNode, target_num: int, expected: List[List[int]]
+        self, test_input: TreeNode, target_num: int, expected: list[list[int]]
     ):
         actual = Solution.path_sum(test_input, target_num)
         assert actual == expected
@@ -410,7 +410,7 @@ class TestSolution:
             (1, [[1]]),
         ],
     )
-    def test_generate(self, row_number: int, expected: List[List[int]]):
+    def test_generate(self, row_number: int, expected: list[list[int]]):
         actual = Solution.generate(row_number)
         assert actual == expected
 
@@ -418,7 +418,7 @@ class TestSolution:
         "test_input, target, expected",
         [([2, 7, 11, 15], 9, [1, 2]), ([2, 3, 4], 6, [1, 3]), ([-1, 0], -1, [1, 2])],
     )
-    def test_two_sum_ii(self, test_input: List[int], target: int, expected: List[int]):
+    def test_two_sum_ii(self, test_input: list[int], target: int, expected: list[int]):
         actual = Solution.two_sum_ii(test_input, target)
         assert actual == expected
 
@@ -429,7 +429,7 @@ class TestSolution:
             ([-1, -100, 3, 99], 2, [3, 99, -1, -100]),
         ],
     )
-    def test_rotate_array(self, actual: List[int], k: int, expected: List[int]):
+    def test_rotate_array(self, actual: list[int], k: int, expected: list[int]):
         Solution.rotate(actual, k)
         assert actual == expected
 
@@ -441,7 +441,7 @@ class TestSolution:
             (4, 1, []),
         ],
     )
-    def test_combination_sum3(self, k: int, n: int, expected: List[List[int]]):
+    def test_combination_sum3(self, k: int, n: int, expected: list[list[int]]):
         actual = Solution.combination_sum3(k, n)
         actual.sort()
         expected.sort()
@@ -458,14 +458,14 @@ class TestSolution:
     @pytest.mark.parametrize(
         "test_input, expected", [([0], [0]), ([0, 1, 0, 3, 12], [1, 3, 12, 0, 0])]
     )
-    def test_move_zeroes(self, test_input: List[int], expected: List[int]):
+    def test_move_zeroes(self, test_input: list[int], expected: list[int]):
         Solution.move_zeroes(test_input)
         assert test_input == expected
 
     @pytest.mark.parametrize(
         "test_input, expected", [([1, 3, 4, 2, 2], 2), ([3, 1, 3, 4, 2], 3)]
     )
-    def test_find_duplicate(self, test_input: List[int], expected: int):
+    def test_find_duplicate(self, test_input: list[int], expected: int):
         actual = Solution.find_duplicate(test_input)
         assert expected == actual
 
@@ -473,7 +473,7 @@ class TestSolution:
         "preorder, expected",
         [("9,3,4,#,#,1,#,#,2,#,6,#,#", True), ("1,#", False), ("9,#,#,1", False)],
     )
-    def test_find_duplicate(self, preorder: str, expected: bool):
+    def test_is_valid_serialization(self, preorder: str, expected: bool):
         actual = Solution.is_valid_serialization(preorder)
         assert expected == actual
 
@@ -485,7 +485,7 @@ class TestSolution:
     @pytest.mark.parametrize(
         "test_input, expected", [([1, 9], 10), ([-1, 9], 8), ([1, 2], 3)]
     )
-    def test_get_sum(self, test_input: List[int], expected: int):
+    def test_get_sum(self, test_input: list[int], expected: int):
         actual = Solution.get_sum(test_input[0], test_input[1])
         assert expected == actual
 
@@ -493,14 +493,14 @@ class TestSolution:
         "test_input, expected",
         [(13, [1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9]), (2, [1, 2])],
     )
-    def test_lexical_order(self, test_input: int, expected: List[int]):
+    def test_lexical_order(self, test_input: int, expected: list[int]):
         actual = Solution.lexical_order(test_input)
         assert expected == actual
 
     @pytest.mark.parametrize(
         "test_input, expected", [([197, 130, 1], True), ([235, 140, 4], False)]
     )
-    def test_valid_utf8(self, test_input: List[int], expected: bool):
+    def test_valid_utf8(self, test_input: list[int], expected: bool):
         actual = Solution.valid_utf8(test_input)
         assert expected == actual
 
@@ -556,7 +556,7 @@ class TestSolution:
         ],
     )
     def test_find_diagonal_order(
-        self, test_input: List[List[int]], expected: List[int]
+        self, test_input: list[list[int]], expected: list[int]
     ):
         actual = Solution.find_diagonal_order(test_input)
         assert actual == expected
@@ -569,7 +569,7 @@ class TestSolution:
     @pytest.mark.parametrize(
         "amount, coins, expected", [(5, [1, 2, 5], 4), (3, [2], 0), (10, [10], 1)]
     )
-    def test_change(self, amount: int, coins: List[int], expected: int):
+    def test_change(self, amount: int, coins: list[int], expected: int):
         actual = Solution.change(amount, coins)
         assert expected == actual
 
@@ -592,7 +592,7 @@ class TestSolution:
         "test_input, expected",
         [([1000, 100, 10, 2], "1000/(100/10/2)")],
     )
-    def test_optimal_division(self, test_input: List[int], expected: str):
+    def test_optimal_division(self, test_input: list[int], expected: str):
         actual = Solution.optimal_division(test_input)
         assert expected == actual
 
@@ -600,7 +600,7 @@ class TestSolution:
         "candy_type, expected",
         [([1, 1, 2, 2, 3, 3], 3), ([1, 1, 2, 3], 2), ([6, 6, 6, 6], 1)],
     )
-    def test_distribute_candies(self, candy_type: List[int], expected: int):
+    def test_distribute_candies(self, candy_type: list[int], expected: int):
         actual = Solution.distribute_candies(candy_type)
         assert expected == actual
 
@@ -645,7 +645,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_n_preorder(self, root: Node, expected: List[int]):
+    def test_n_preorder(self, root: Node, expected: list[int]):
         actual = Solution.preorder(root)
         assert expected == actual
 
@@ -690,7 +690,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_n_postorder(self, root: Node, expected: List[int]):
+    def test_n_postorder(self, root: Node, expected: list[int]):
         actual = Solution.postorder(root)
         assert expected == actual
 
@@ -714,7 +714,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_find_restaurant(self, l1: List[str], l2: List[str], expected: List[str]):
+    def test_find_restaurant(self, l1: list[str], l2: list[str], expected: list[str]):
         actual = Solution.find_restaurant(l1, l2)
         assert expected == actual
 
@@ -737,10 +737,10 @@ class TestSolution:
     )
     def test_add_one_row(
         self,
-        root: Optional[TreeNode],
+        root: TreeNode | None,
         val: int,
         depth: int,
-        expected: Optional[TreeNode],
+        expected: TreeNode | None,
     ):
         actual = Solution.add_one_row(root, val, depth)
         assert Util.level_traverse(actual) == Util.level_traverse(expected)
@@ -749,7 +749,7 @@ class TestSolution:
         "pairs, expected",
         [([[1, 2], [2, 3], [3, 4]], 2), ([[1, 2], [7, 8], [4, 5]], 3)],
     )
-    def test_find_longest_chain(self, pairs: List[List[int]], expected: int):
+    def test_find_longest_chain(self, pairs: list[list[int]], expected: int):
         actual = Solution.find_longest_chain(pairs)
         assert expected == actual
 
@@ -768,7 +768,7 @@ class TestSolution:
         ],
     )
     def test_find_duplicate_subtrees(
-        self, root: Optional[TreeNode], expected: List[Optional[TreeNode]]
+        self, root: TreeNode | None, expected: list[TreeNode | None]
     ):
         actual = Solution.find_duplicate_subtrees(root)
         actual_level_traverse = sorted([Util.level_traverse(node) for node in actual])
@@ -791,7 +791,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_print_tree(self, root: Optional[TreeNode], expected: List[List[str]]):
+    def test_print_tree(self, root: TreeNode | None, expected: list[list[str]]):
         actual = Solution.print_tree(root)
         assert expected == actual
 
@@ -800,7 +800,7 @@ class TestSolution:
         [([1, 2, 3, 4, 5], 4, 3, [1, 2, 3, 4]), ([1, 2, 3, 4, 5], 4, -1, [1, 2, 3, 4])],
     )
     def test_find_closest_elements(
-        self, arr: List[int], k: int, x: int, expected: List[int]
+        self, arr: list[int], k: int, x: int, expected: list[int]
     ):
         actual = Solution.find_closest_elements(arr, k, x)
         assert expected == actual
@@ -813,7 +813,7 @@ class TestSolution:
             (Util.generate_tree_node([1, 3, 2, 5]), 2),
         ],
     )
-    def test_width_of_binary_tree(self, root: Optional[TreeNode], expected: int):
+    def test_width_of_binary_tree(self, root: TreeNode | None, expected: int):
         actual = Solution.width_of_binary_tree(root)
         assert expected == actual
 
@@ -832,7 +832,7 @@ class TestSolution:
         "n, k, expected",
         [(3, 1, [1, 2, 3]), (3, 2, [1, 3, 2])],
     )
-    def test_construct_array(self, n: int, k: int, expected: List[int]):
+    def test_construct_array(self, n: int, k: int, expected: list[int]):
         actual = Solution.construct_array(n, k)
         assert expected == actual
 
@@ -855,10 +855,10 @@ class TestSolution:
     )
     def test_trim_bst(
         self,
-        root: Optional[TreeNode],
+        root: TreeNode | None,
         low: int,
         high: int,
-        expected: Optional[TreeNode],
+        expected: TreeNode | None,
     ):
         actual = Solution.trim_bst(root, low, high)
         assert Util.level_traverse(actual) == Util.level_traverse(expected)
@@ -887,7 +887,7 @@ class TestSolution:
             (Util.generate_tree_node([1, 4, 5, 4, 4, None, 5]), 2),
         ],
     )
-    def test_longest_univalue_path(self, root: Optional[TreeNode], expected: int):
+    def test_longest_univalue_path(self, root: TreeNode | None, expected: int):
         actual = Solution.longest_univalue_path(root)
         assert expected == actual
 
@@ -898,7 +898,7 @@ class TestSolution:
             (47, 85, [48, 55, 66, 77]),
         ],
     )
-    def test_self_dividing_number(self, left: int, right: int, expected: List[int]):
+    def test_self_dividing_number(self, left: int, right: int, expected: list[int]):
         actual = Solution.self_dividing_number(left, right)
         assert expected == actual
 
@@ -910,7 +910,7 @@ class TestSolution:
             (["c", "f", "j"], "d", "f"),
         ],
     )
-    def test_next_greatest_letter(self, letters: List[str], target: str, expected: str):
+    def test_next_greatest_letter(self, letters: list[str], target: str, expected: str):
         actual = Solution.next_greatest_letter(letters, target)
         assert expected == actual
 
@@ -927,7 +927,7 @@ class TestSolution:
         [(5, [[4, 2]], 2), (1, [[0, 0]], 0)],
     )
     def test_order_of_largest_plus_sign(
-        self, n: int, mines: List[List[int]], expected: int
+        self, n: int, mines: list[list[int]], expected: int
     ):
         actual = Solution.order_of_largest_plus_sign(n, mines)
         assert expected == actual
@@ -936,7 +936,7 @@ class TestSolution:
         "nums, expected",
         [([1, 0, 2], True), ([1, 2, 0], False)],
     )
-    def test_is_ideal_permutation(self, nums: List[int], expected: bool):
+    def test_is_ideal_permutation(self, nums: list[int], expected: bool):
         actual = Solution.is_ideal_permutation(nums)
         assert expected == actual
 
@@ -944,7 +944,7 @@ class TestSolution:
         "arr, expected",
         [([4, 3, 2, 1, 0], 1), ([1, 0, 2, 3, 4], 4)],
     )
-    def test_max_chunks_to_sorted(self, arr: List[int], expected: int):
+    def test_max_chunks_to_sorted(self, arr: list[int], expected: int):
         actual = Solution.max_chunks_to_sorted(arr)
         assert expected == actual
 
@@ -960,7 +960,7 @@ class TestSolution:
         "s, expected",
         [("a1b2", ["a1b2", "a1B2", "A1b2", "A1B2"]), ("3z4", ["3z4", "3Z4"])],
     )
-    def test_letter_case_permutation(self, s: str, expected: List[str]):
+    def test_letter_case_permutation(self, s: str, expected: list[str]):
         actual = Solution.letter_case_permutation(s)
         actual.sort()
         expected.sort()
@@ -989,7 +989,7 @@ class TestSolution:
             ("dsahjpjauf", ["ahjpjau", "ja", "ahbwzgqnuk", "tnmlanowax"], 2),
         ],
     )
-    def test_num_matching_subseq(self, s: str, words: List[str], expected: int):
+    def test_num_matching_subseq(self, s: str, words: list[str], expected: int):
         actual = Solution.num_matching_subseq(s, words)
         assert expected == actual
 
@@ -1018,7 +1018,7 @@ class TestSolution:
             ([0, 3, 5, 8, 9], [2, 1, 4, 6, 9], 1),
         ],
     )
-    def test_min_swap(self, nums1: List[int], nums2: List[int], expected: int):
+    def test_min_swap(self, nums1: list[int], nums2: list[int], expected: int):
         actual = Solution.min_swap(nums1, nums2)
         assert expected == actual
 
@@ -1026,7 +1026,7 @@ class TestSolution:
         "words, expected",
         [(["gin", "zen", "gig", "msg"], 2), (["a"], 1)],
     )
-    def test_unique_morse_representations(self, words: List[str], expected: int):
+    def test_unique_morse_representations(self, words: list[str], expected: int):
         actual = Solution.unique_morse_representations(words)
         assert expected == actual
 
@@ -1034,7 +1034,7 @@ class TestSolution:
         "nums, expected",
         [([1, 2, 3, 4, 5, 6, 7, 8], True), ([3, 1], False)],
     )
-    def test_split_array_same_average(self, nums: List[int], expected: bool):
+    def test_split_array_same_average(self, nums: list[int], expected: bool):
         actual = Solution.split_array_same_average(nums)
         assert expected == actual
 
@@ -1107,7 +1107,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_number_of_lines(self, widths: List[int], s: str, expected: List[int]):
+    def test_number_of_lines(self, widths: list[int], s: str, expected: list[int]):
         actual = Solution.number_of_lines(widths, s)
         assert expected == actual
 
@@ -1137,7 +1137,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_subdomain_in_visits(self, cpdomains: List[str], expected: set[str]):
+    def test_subdomain_in_visits(self, cpdomains: list[str], expected: set[str]):
         actual = set(Solution.subdomain_visits(cpdomains))
         assert expected == actual
 
@@ -1159,7 +1159,7 @@ class TestSolution:
             ("(00011)", ["(0, 0.011)", "(0.001, 1)"]),
         ],
     )
-    def test_ambiguous_coordinates(self, s: str, expected: List[str]):
+    def test_ambiguous_coordinates(self, s: str, expected: list[str]):
         actual = Solution.ambiguous_coordinates(s)
         expected.sort()
         actual.sort()
@@ -1173,7 +1173,7 @@ class TestSolution:
         ],
     )
     def test_num_components(
-        self, head: Optional[ListNode], nums: List[int], expected: int
+        self, head: ListNode | None, nums: list[int], expected: int
     ):
         actual = Solution.num_components(head, nums)
         assert expected == actual
@@ -1202,7 +1202,7 @@ class TestSolution:
         ],
     )
     def test_min_cost_to_hire_worker(
-        self, quality: List[int], wage: List[int], k: int, expected: float
+        self, quality: list[int], wage: list[int], k: int, expected: float
     ):
         actual = Solution.min_cost_to_hire_worker(quality, wage, k)
         actual = round(actual, 5)
@@ -1216,7 +1216,7 @@ class TestSolution:
             ([2, -1, 2], 3, 3),
         ],
     )
-    def test_min_shortest_subarray(self, nums: List[int], k: int, expected: int):
+    def test_min_shortest_subarray(self, nums: list[int], k: int, expected: int):
         actual = Solution.shortest_subarray(nums, k)
         assert expected == actual
 
@@ -1228,7 +1228,7 @@ class TestSolution:
         ],
     )
     def test_advantage_count(
-        self, nums1: List[int], nums2: List[int], expected: List[int]
+        self, nums1: list[int], nums2: list[int], expected: list[int]
     ):
         actual = Solution.advantage_count(nums1, nums2)
         assert expected == actual
@@ -1252,7 +1252,7 @@ class TestSolution:
         "people, limit, expected",
         [([1, 2], 3, 1), ([3, 2, 2, 1], 3, 3), ([3, 5, 3, 4], 5, 4)],
     )
-    def test_num_rescue_boats(self, people: List[int], limit: int, expected: int):
+    def test_num_rescue_boats(self, people: list[int], limit: int, expected: int):
         actual = Solution.num_rescue_boats(people, limit)
         assert expected == actual
 
@@ -1260,7 +1260,7 @@ class TestSolution:
         "test_input, expected",
         [([[1, 2], [3, 4]], 17), ([[2]], 5), ([[1, 0], [0, 2]], 8)],
     )
-    def test_projection_area(self, test_input: List[List[int]], expected: int):
+    def test_projection_area(self, test_input: list[list[int]], expected: int):
         actual = Solution.projection_area(test_input)
         assert expected == actual
 
@@ -1271,7 +1271,7 @@ class TestSolution:
             ([-7, -3, 2, 3, 11], [4, 9, 9, 49, 121]),
         ],
     )
-    def test_sorted_squares(self, test_input: List[int], expected: List[int]):
+    def test_sorted_squares(self, test_input: list[int], expected: list[int]):
         actual = Solution.sorted_squares(test_input)
         assert actual == expected
 
@@ -1283,7 +1283,7 @@ class TestSolution:
             ([6], [6]),
         ],
     )
-    def test_min_subsequence(self, test_input: List[int], expected: List[int]):
+    def test_min_subsequence(self, test_input: list[int], expected: list[int]):
         actual = Solution.min_subsequence(test_input)
         assert actual == expected
 
@@ -1295,7 +1295,7 @@ class TestSolution:
             ("1229857369", [""]),
         ],
     )
-    def test_reformat(self, test_input: str, expected: List[str]):
+    def test_reformat(self, test_input: str, expected: list[str]):
         actual = Solution.reformat(test_input)
         assert actual in expected
 
@@ -1307,7 +1307,7 @@ class TestSolution:
             ([1, 2], 4, ["Push", "Push"]),
         ],
     )
-    def test_build_array(self, target: List[int], n: int, expected: int):
+    def test_build_array(self, target: list[int], n: int, expected: int):
         actual = Solution.build_array(target, n)
         assert actual == expected
 
@@ -1319,7 +1319,7 @@ class TestSolution:
         ],
     )
     def test_busy_student(
-        self, start_time: List[int], end_time: List[int], query_time: int, expected: int
+        self, start_time: list[int], end_time: list[int], query_time: int, expected: int
     ):
         actual = Solution.busy_student(start_time, end_time, query_time)
         assert actual == expected
@@ -1344,7 +1344,7 @@ class TestSolution:
             ([3, 7, 9], [3, 7, 11], False),
         ],
     )
-    def test_can_be_equal(self, target: List[int], arr: List[int], expected: bool):
+    def test_can_be_equal(self, target: list[int], arr: list[int], expected: bool):
         actual = Solution.can_be_equal(target, arr)
         assert actual == expected
 
@@ -1356,7 +1356,7 @@ class TestSolution:
             ([1, 1, 2, 2], 2, [1, 2, 1, 2]),
         ],
     )
-    def test_shuffle(self, nums: List[int], n: int, expected: List[int]):
+    def test_shuffle(self, nums: list[int], n: int, expected: list[int]):
         actual = Solution.shuffle(nums, n)
         assert actual == expected
 
@@ -1368,7 +1368,7 @@ class TestSolution:
             ([10, 1, 1, 6], [9, 0, 1, 6]),
         ],
     )
-    def test_final_prices(self, prices: List[int], expected: List[int]):
+    def test_final_prices(self, prices: list[int], expected: list[int]):
         actual = Solution.final_prices(prices)
         assert expected == actual
 
@@ -1380,7 +1380,7 @@ class TestSolution:
         ],
     )
     def test_can_make_arithmetic_progression(
-        self, test_input: List[int], expected: bool
+        self, test_input: list[int], expected: bool
     ):
         actual = Solution.can_make_arithmetic_progression(test_input)
         assert actual == expected
@@ -1406,7 +1406,7 @@ class TestSolution:
         ],
     )
     def test_insert_into_max_tree(
-        self, root: Optional[TreeNode], val: int, expected: Optional[TreeNode]
+        self, root: TreeNode | None, val: int, expected: TreeNode | None
     ):
         actual = Solution.insert_into_max_tree(root, val)
         assert Util.level_traverse(actual) == Util.level_traverse(expected)
@@ -1442,7 +1442,7 @@ class TestSolution:
             ([[1, 0, 0], [0, 1, 0], [0, 0, 1]], 3),
         ],
     )
-    def test_num_special(self, mat: List[List[int]], expected: int):
+    def test_num_special(self, mat: list[list[int]], expected: int):
         actual = Solution.num_special(mat)
         assert expected == actual
 
@@ -1465,14 +1465,14 @@ class TestSolution:
             (["d1/", "../", "../", "../"], 0),
         ],
     )
-    def test_min_operations(self, logs: List[str], expected: int):
+    def test_min_operations(self, logs: list[str], expected: int):
         actual = Solution.min_operations(logs)
         assert expected == actual
 
     @pytest.mark.parametrize(
         "nums, expected", [([3, 5], 2), ([0, 0], -1), ([0, 4, 3, 0, 4], 3)]
     )
-    def test_special_array(self, nums: List[int], expected: int):
+    def test_special_array(self, nums: list[int], expected: int):
         actual = Solution.special_array(nums)
         assert expected == actual
 
@@ -1528,7 +1528,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_trim_mean(self, arr: List[int], expected: float):
+    def test_trim_mean(self, arr: list[int], expected: float):
         actual = Solution.trim_mean(arr)
         assert actual - expected <= 0.00001
 
@@ -1541,7 +1541,7 @@ class TestSolution:
         ],
     )
     def test_best_coordinate(
-        self, towers: List[List[int]], radius: int, expected: List[int]
+        self, towers: list[list[int]], radius: int, expected: list[int]
     ):
         actual = Solution.best_coordinate(towers, radius)
         assert expected == actual
@@ -1566,7 +1566,7 @@ class TestSolution:
             ([-1, 1, -6, 4, 5, -6, 1, 4, 1], [5, -1, 4, 4, -6, -6, 1, 1, 1]),
         ],
     )
-    def test_frequency_sort(self, nums: List[int], expected: List[int]):
+    def test_frequency_sort(self, nums: list[int], expected: list[int]):
         actual = Solution.frequency_sort(nums)
         assert expected == actual
 
@@ -1579,7 +1579,7 @@ class TestSolution:
         ],
     )
     def test_array_strings_are_equal(
-        self, word1: List[str], word2: List[str], expected: bool
+        self, word1: list[str], word2: list[str], expected: bool
     ):
         actual = Solution.array_strings_are_equal(word1, word2)
         assert expected == actual
@@ -1617,7 +1617,7 @@ class TestSolution:
         ],
     )
     def test_count_consistent_strings(
-        self, allowed: str, words: List[str], expected: int
+        self, allowed: str, words: list[str], expected: int
     ):
         actual = Solution.count_consistent_strings(allowed, words)
         assert expected == actual
@@ -1642,7 +1642,7 @@ class TestSolution:
         ],
     )
     def test_count_students(
-        self, students: List[int], sandwiches: List[int], expected: int
+        self, students: list[int], sandwiches: list[int], expected: int
     ):
         actual = Solution.count_students(students, sandwiches)
         assert expected == actual
@@ -1666,7 +1666,7 @@ class TestSolution:
         ],
     )
     def test_maximum_units(
-        self, box_types: List[List[int]], truck_size: int, expected: int
+        self, box_types: list[list[int]], truck_size: int, expected: int
     ):
         actual = Solution.maximum_units(box_types, truck_size)
         assert expected == actual
@@ -1678,7 +1678,7 @@ class TestSolution:
             ([-4, -3, -2, -1, 4, 3, 2], 0),
         ],
     )
-    def test_largest_altitude(self, gain: List[int], expected: int):
+    def test_largest_altitude(self, gain: list[int], expected: int):
         actual = Solution.largest_altitude(gain)
         assert expected == actual
 
@@ -1744,7 +1744,7 @@ class TestSolution:
         ],
     )
     def test_count_matches(
-        self, items: List[List[str]], rule_key: str, rule_value: str, expected: int
+        self, items: list[list[str]], rule_key: str, rule_value: str, expected: int
     ):
         actual = Solution.count_matches(items, rule_key, rule_value)
         assert expected == actual
@@ -1780,7 +1780,7 @@ class TestSolution:
             ([12, 17, 15, 13, 10, 11, 12], 33),
         ],
     )
-    def test_max_ascending_sum(self, nums: List[int], expected: int):
+    def test_max_ascending_sum(self, nums: list[int], expected: int):
         actual = Solution.max_ascending_sum(nums)
         assert expected == actual
 
@@ -1803,7 +1803,7 @@ class TestSolution:
             ([-1, 1, -1, 1, -1], -1),
         ],
     )
-    def test_array_sign(self, nums: List[int], expected: int):
+    def test_array_sign(self, nums: list[int], expected: int):
         actual = Solution.array_sign(nums)
         assert expected == actual
 
@@ -1826,7 +1826,7 @@ class TestSolution:
             ([2, 5], -1),
         ],
     )
-    def test_pivot_index(self, test_input: List[int], expected: int):
+    def test_pivot_index(self, test_input: list[int], expected: int):
         actual = Solution.pivot_index(test_input)
         assert actual == expected
 
@@ -1838,7 +1838,7 @@ class TestSolution:
             ([0, 1, 2, 0], 6),
         ],
     )
-    def test_first_daya_been_in_all_rooms(self, next_visit: List[int], expected: int):
+    def test_first_daya_been_in_all_rooms(self, next_visit: list[int], expected: int):
         actual = Solution.first_daya_been_in_all_rooms(next_visit)
         assert actual == expected
 
@@ -1850,7 +1850,7 @@ class TestSolution:
             ([3, 2, 1, 5, 4], 2, 3),
         ],
     )
-    def test_count_k_difference(self, test_input: List[int], k: int, expected: int):
+    def test_count_k_difference(self, test_input: list[int], k: int, expected: int):
         actual = Solution.count_k_difference(test_input, k)
         assert actual == expected
 
@@ -1862,7 +1862,7 @@ class TestSolution:
             ([1, 5, 2, 10], 9),
         ],
     )
-    def test_maximum_difference(self, test_input: List[int], expected: int):
+    def test_maximum_difference(self, test_input: list[int], expected: int):
         actual = Solution.maximum_difference(test_input)
         assert actual == expected
 
@@ -1875,7 +1875,7 @@ class TestSolution:
         ],
     )
     def test_possible_bipartition(
-        self, n: int, dislikes: List[List[int]], expected: bool
+        self, n: int, dislikes: list[list[int]], expected: bool
     ):
         actual = Solution.possible_bipartition(n, dislikes)
         assert actual == expected
@@ -1888,7 +1888,7 @@ class TestSolution:
             ([1, 2, 3, 2, 2], 4),
         ],
     )
-    def test_total_fruit(self, fruits: List[int], expected: int):
+    def test_total_fruit(self, fruits: list[int], expected: int):
         actual = Solution.total_fruit(fruits)
         assert actual == expected
 
@@ -1899,7 +1899,7 @@ class TestSolution:
             ([0], [0]),
         ],
     )
-    def test_sort_array_by_parity(self, test_input: List[int], expected: List[int]):
+    def test_sort_array_by_parity(self, test_input: list[int], expected: list[int]):
         actual = Solution.sort_array_by_parity(test_input)
         assert actual == expected
 
@@ -1910,7 +1910,7 @@ class TestSolution:
             ([11, 81, 94, 43, 3], 444),
         ],
     )
-    def test_sum_subarray_mins(self, arr: List[int], expected: int):
+    def test_sum_subarray_mins(self, arr: list[int], expected: int):
         actual = Solution.sum_subarray_mins(arr)
         assert actual == expected
 
@@ -1921,7 +1921,7 @@ class TestSolution:
             ([1, 1, 1, 0, 6, 12], 4),
         ],
     )
-    def test_partition_disjoint(self, nums: List[int], expected: int):
+    def test_partition_disjoint(self, nums: list[int], expected: int):
         actual = Solution.partition_disjoint(nums)
         assert actual == expected
 
@@ -1944,7 +1944,7 @@ class TestSolution:
             ([1, 1, 0, 0, 1], [0, 2]),
         ],
     )
-    def test_min_three_equal_parts(self, arr: List[int], expected: List[int]):
+    def test_min_three_equal_parts(self, arr: list[int], expected: list[int]):
         actual = Solution.three_equal_parts(arr)
         assert actual == expected
 
@@ -1965,7 +1965,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_shortest_bridge(self, grid: List[List[int]], expected: int):
+    def test_shortest_bridge(self, grid: list[list[int]], expected: int):
         actual = Solution.shortest_bridge(grid)
         assert actual == expected
 
@@ -1989,7 +1989,7 @@ class TestSolution:
             ("DDI", [3, 2, 0, 1]),
         ],
     )
-    def test_di_string_match(self, s: str, expected: List[int]):
+    def test_di_string_match(self, s: str, expected: list[int]):
         actual = Solution.di_string_match(s)
         assert actual == expected
 
@@ -2001,7 +2001,7 @@ class TestSolution:
             (["zyx", "wvu", "tsr"], 3),
         ],
     )
-    def test_min_deletion_size(self, strs: List[str], expected: int):
+    def test_min_deletion_size(self, strs: list[str], expected: int):
         actual = Solution.min_deletion_size(strs)
         assert actual == expected
 
@@ -2013,7 +2013,7 @@ class TestSolution:
         ],
     )
     def test_validate_stack_sequences(
-        self, pushed: List[int], popped: List[int], expected: bool
+        self, pushed: list[int], popped: list[int], expected: bool
     ):
         actual = Solution.validate_stack_sequences(pushed, popped)
         assert expected == actual
@@ -2026,7 +2026,7 @@ class TestSolution:
             ([5, 1, 5, 2, 5, 3, 5, 4], 5),
         ],
     )
-    def test_repeated_n_times(self, nums: List[int], expected: int):
+    def test_repeated_n_times(self, nums: list[int], expected: int):
         actual = Solution.repeated_n_times(nums)
         assert actual == expected
 
@@ -2038,7 +2038,7 @@ class TestSolution:
             (["X++", "++X", "--X", "X--"], 0),
         ],
     )
-    def test_final_value_after_operations(self, operations: List[str], expected: int):
+    def test_final_value_after_operations(self, operations: list[str], expected: int):
         actual = Solution.final_value_after_operations(operations)
         assert actual == expected
 
@@ -2063,7 +2063,7 @@ class TestSolution:
         ],
     )
     def test_two_out_of_three(
-        self, nums1: List[int], nums2: List[int], nums3: List[int], expected: List[int]
+        self, nums1: list[int], nums2: list[int], nums3: list[int], expected: list[int]
     ):
         actual = Solution.two_out_of_three(nums1, nums2, nums3)
         actual.sort()
@@ -2079,7 +2079,7 @@ class TestSolution:
         ],
     )
     def test_min_moves_to_seat(
-        self, seats: List[int], students: List[int], expected: int
+        self, seats: list[int], students: list[int], expected: int
     ):
         actual = Solution.min_moves_to_seat(seats, students)
         assert expected == actual
@@ -2107,7 +2107,7 @@ class TestSolution:
             ([3, 2, 1, 5], 6),
         ],
     )
-    def test_count_max_or_subsets(self, test_input: List[int], expected: int):
+    def test_count_max_or_subsets(self, test_input: list[int], expected: int):
         actual = Solution.count_max_or_subsets(test_input)
         assert actual == expected
 
@@ -2123,7 +2123,7 @@ class TestSolution:
         ],
     )
     def test_plates_between_candles(
-        self, test_input: str, queries: List[List[int]], expected: List[int]
+        self, test_input: str, queries: list[list[int]], expected: list[int]
     ):
         actual = Solution.plates_between_candles(test_input, queries)
         assert actual == expected
@@ -2146,7 +2146,7 @@ class TestSolution:
             (["leetcode", "win", "loops", "success"], "code", 0),
         ],
     )
-    def test_prefix_count(self, words: List[str], pref: str, expected: int):
+    def test_prefix_count(self, words: list[str], pref: str, expected: int):
         actual = Solution.prefix_count(words, pref)
         assert expected == actual
 
@@ -2170,7 +2170,7 @@ class TestSolution:
             ([[1, 3], [10, 20], [2, 5], [4, 8]], 4),
         ],
     )
-    def test_count_ways(self, ranges: List[List[int]], expected: int):
+    def test_count_ways(self, ranges: list[list[int]], expected: int):
         actual = Solution.count_ways(ranges)
         assert expected == actual
 
@@ -2182,7 +2182,7 @@ class TestSolution:
             ([12], [10, 16], 10),
         ],
     )
-    def test_max_div_score(self, nums: List[int], divisors: List[int], expected: int):
+    def test_max_div_score(self, nums: list[int], divisors: list[int], expected: int):
         actual = Solution.max_div_score(nums, divisors)
         assert expected == actual
 
@@ -2205,7 +2205,7 @@ class TestSolution:
             ([6, 5, 4, 3, 4, 5], -1),
         ],
     )
-    def test_count_ways(self, nums: List[int], expected: int):
+    def test_minimum_sum(self, nums: list[int], expected: int):
         actual = Solution.minimum_sum(nums)
         assert expected == actual
 
@@ -2226,7 +2226,7 @@ class TestSolution:
             ),
         ],
     )
-    def test_minimum_added_coins(self, coins: List[int], target: int, expected: int):
+    def test_minimum_added_coins(self, coins: list[int], target: int, expected: int):
         actual = Solution.minimum_added_coins(coins, target)
         assert expected == actual
 
@@ -2238,7 +2238,7 @@ class TestSolution:
         ],
     )
     def test_get_final_state(
-        self, nums: List[int], k: int, multiplier: int, expected: List[int]
+        self, nums: list[int], k: int, multiplier: int, expected: list[int]
     ):
         actual = Solution.get_final_state(nums, k, multiplier)
         assert expected == actual
@@ -2251,6 +2251,6 @@ class TestSolution:
             ([7, 1, 5, 4, 3, 4, 6, 0, 9, 5, 8, 2], [4, 5]),
         ],
     )
-    def test_get_sneaky_numbers(self, nums: List[int], expected: List[int]):
+    def test_get_sneaky_numbers(self, nums: list[int], expected: list[int]):
         actual = Solution.get_sneaky_numbers(nums)
         assert expected == actual

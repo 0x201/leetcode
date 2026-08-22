@@ -1,24 +1,22 @@
 import collections
 from _heapq import heappop, heappush
+from bisect import bisect_left, bisect_right
+from collections import Counter, defaultdict, deque
 from heapq import heapify
-from itertools import pairwise, zip_longest, product
-from bisect import bisect_right, bisect_left
-from math import inf, floor, sqrt
-from typing import List, Optional, Any
+from itertools import pairwise, product, zip_longest
+from math import floor, inf, sqrt
 
-from collections import Counter, deque, defaultdict
-
-from src.leetcode.automation import Automation
 from src.data_structures.list_node import ListNode
-from src.data_structures.tree_node import TreeNode
 from src.data_structures.node import Node
+from src.data_structures.tree_node import TreeNode
+from src.leetcode.automation import Automation
 
-MOD = 10 ** 9 + 7
+MOD = 10**9 + 7
 
 
 class Solution:
     @staticmethod
-    def two_sum(nums: List[int], target: int) -> List[int]:
+    def two_sum(nums: list[int], target: int) -> list[int]:
         """1.Two sum"""
         hash_table = dict()
         for i, num in enumerate(nums):
@@ -28,9 +26,7 @@ class Solution:
         return []
 
     @staticmethod
-    def add_two_numbers(
-            l1: Optional[ListNode], l2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+    def add_two_numbers(l1: ListNode | None, l2: ListNode | None) -> ListNode | None:
         """2.Add two Numbers"""
         carry = 0
         dummy_head: ListNode = ListNode(0, None)
@@ -57,14 +53,14 @@ class Solution:
         size = len(s)
         i = ans = 0
         index = [0] * 128
-        for j in range(0, size):
+        for j in range(size):
             i = max(index[ord(s[j])], i)
             ans = max(ans, j - i + 1)
             index[ord(s[j])] = j + 1
         return ans
 
     @staticmethod
-    def find_median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
+    def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:
         """4.Median of Two Sorted Arrays"""
 
         def get_kth_element(k) -> int:
@@ -92,15 +88,22 @@ class Solution:
             return get_kth_element((total_length + 1) // 2)
         else:
             return (
-                    get_kth_element(total_length // 2)
-                    + get_kth_element(total_length // 2 + 1)
+                get_kth_element(total_length // 2)
+                + get_kth_element(total_length // 2 + 1)
             ) / 2
 
     @staticmethod
     def longest_palindrome(s: str) -> str:
         """5.Longest Palindromic Substring"""
-        def expand_around_center(input_str: str, left: int, right: int) -> tuple[int, int]:
-            while left >= 0 and right < len(input_str) and input_str[left] == input_str[right]:
+
+        def expand_around_center(
+            input_str: str, left: int, right: int
+        ) -> tuple[int, int]:
+            while (
+                left >= 0
+                and right < len(input_str)
+                and input_str[left] == input_str[right]
+            ):
                 left -= 1
                 right += 1
             return left + 1, right - 1
@@ -114,7 +117,7 @@ class Solution:
                 start, end = left1, right1
             if right2 - left2 > end - start:
                 start, end = left2, right2
-        return s[start: end + 1]
+        return s[start : end + 1]
 
     @staticmethod
     def z_convert(s: str, num_rows: int) -> str:
@@ -135,7 +138,7 @@ class Solution:
     def reverse_int(x: int) -> int:
         """7.Reverse Integer"""
         res = 0
-        int_min, int_max = -(2 ** 31), 2 ** 31 - 1
+        int_min, int_max = -(2**31), 2**31 - 1
         while x != 0:
             if res < int_min // 10 + 1 or res > int_max // 10:
                 return 0
@@ -193,7 +196,7 @@ class Solution:
         return f[m][n]
 
     @staticmethod
-    def max_area(height: List[int]) -> int:
+    def max_area(height: list[int]) -> int:
         """11.Container With Most Water"""
         left, right = 0, len(height) - 1
         res = 0
@@ -215,10 +218,10 @@ class Solution:
         ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
 
         return (
-                thousands[num // 1000]
-                + hundreds[num % 1000 // 100]
-                + tens[num % 100 // 10]
-                + ones[num % 10]
+            thousands[num // 1000]
+            + hundreds[num % 1000 // 100]
+            + tens[num % 100 // 10]
+            + ones[num % 10]
         )
 
     @staticmethod
@@ -236,7 +239,7 @@ class Solution:
         return res
 
     @staticmethod
-    def longest_common_prefix(strs: List[str]) -> str:
+    def longest_common_prefix(strs: list[str]) -> str:
         """14.Longest Common Prefix"""
         if not strs:
             return ""
@@ -248,7 +251,7 @@ class Solution:
         return strs[0]
 
     @staticmethod
-    def remove_nth_from_end(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    def remove_nth_from_end(head: ListNode | None, n: int) -> ListNode | None:
         """19.Remove Nth Node From End of List"""
         dummy = ListNode(-1, head)
         fast = head
@@ -262,7 +265,7 @@ class Solution:
         return dummy.next
 
     @staticmethod
-    def merge_two_lists(list1: Optional[ListNode], list2: Optional[ListNode]):
+    def merge_two_lists(list1: ListNode | None, list2: ListNode | None):
         """21.Merge Two Sorted Lists"""
         dummy = ListNode(-1)
         p1, p2 = list1, list2
@@ -282,7 +285,7 @@ class Solution:
         return dummy.next
 
     @staticmethod
-    def merge_k_lists(lists: List[Optional[ListNode]]):
+    def merge_k_lists(lists: list[ListNode | None]):
         """23.Merge k Sorted Lists"""
         if len(lists) == 0:
             return None
@@ -303,7 +306,7 @@ class Solution:
         return dummy.next
 
     @staticmethod
-    def remove_duplicates(nums: List[int]) -> int:
+    def remove_duplicates(nums: list[int]) -> int:
         """26.Remove Duplicates from Sorted Array"""
         if not nums:
             return 0
@@ -317,7 +320,7 @@ class Solution:
         return slow
 
     @staticmethod
-    def remove_element(nums: List[int], val: int) -> int:
+    def remove_element(nums: list[int], val: int) -> int:
         """
         27 Remove Element
         """
@@ -329,7 +332,7 @@ class Solution:
         return slow
 
     @staticmethod
-    def search(nums: List[int], target: int) -> int:
+    def search(nums: list[int], target: int) -> int:
         """33.Search in Rotated Sorted Array"""
         n = len(nums)
         if n == 0:
@@ -355,7 +358,7 @@ class Solution:
         return -1
 
     @staticmethod
-    def search_insert(nums: List[int], target: int):
+    def search_insert(nums: list[int], target: int):
         """35.Search Insert Position"""
         left = 0
         right = len(nums) - 1
@@ -368,13 +371,13 @@ class Solution:
         return left + 1 if nums[left] < target else left
 
     @staticmethod
-    def combination_sum(candidates: List[int], target: int) -> List[List[int]]:
+    def combination_sum(candidates: list[int], target: int) -> list[list[int]]:
         def dfs(
-                nums: List[int],
-                target: int,
-                ans: List[List[int]],
-                combination: List[int],
-                index: int,
+            nums: list[int],
+            target: int,
+            ans: list[list[int]],
+            combination: list[int],
+            index: int,
         ):
             if index == len(nums):
                 return
@@ -393,7 +396,7 @@ class Solution:
         return ans
 
     @staticmethod
-    def group_anagrams(strs: List[str]) -> List[List[str]]:
+    def group_anagrams(strs: list[str]) -> list[list[str]]:
         """49.Group Anagrams"""
         dic = collections.defaultdict(list)
         for item in strs:
@@ -404,7 +407,7 @@ class Solution:
         return list(dic.values())
 
     @staticmethod
-    def merge(intervals: List[List[int]]) -> List[List[int]]:
+    def merge(intervals: list[list[int]]) -> list[list[int]]:
         """56.Merge Intervals"""
         intervals.sort(key=lambda x: x[0])
         merged = []
@@ -440,18 +443,18 @@ class Solution:
     def climb_stairs(n: int) -> int:
         """70.Climb Stairs"""
         p, q, r = 0, 0, 1
-        for i in range(1, n+1):
+        for i in range(1, n + 1):
             p = q
             q = r
             r = p + q
         return r
 
     @staticmethod
-    def set_zeroes(matrix: List[List[int]]) -> None:
+    def set_zeroes(matrix: list[list[int]]) -> None:
         """73.Set Matrix Zeroes"""
         rows, cols = len(matrix), len(matrix[0])
         col0 = 1
-        for i in range(0, rows):
+        for i in range(rows):
             if matrix[i][0] == 0:
                 col0 = 0
             for j in range(1, cols):
@@ -465,7 +468,7 @@ class Solution:
                 matrix[i][0] = 0
 
     @staticmethod
-    def search_matrix(matrix: List[List[int]], target: int) -> bool:
+    def search_matrix(matrix: list[list[int]], target: int) -> bool:
         """74.Search in 2D Matrix"""
         m = len(matrix)
         n = len(matrix[0])
@@ -518,7 +521,7 @@ class Solution:
         return dummy_node.next
 
     @staticmethod
-    def min_depth(root: Optional[TreeNode]) -> int:
+    def min_depth(root: TreeNode | None) -> int:
         """111.Minimum Depth of Binary Tree"""
         if not root:
             return 0
@@ -534,12 +537,12 @@ class Solution:
         return 0
 
     @staticmethod
-    def path_sum(root: Optional[TreeNode], target_num: int) -> List[List[int]]:
+    def path_sum(root: TreeNode | None, target_num: int) -> list[list[int]]:
         """113.Path Sum II"""
-        ret = list()
-        path = list()
+        ret = []
+        path = []
 
-        def dfs(node: Optional[TreeNode], target: int):
+        def dfs(node: TreeNode | None, target: int):
             if not node:
                 return
             path.append(node.val)
@@ -554,12 +557,12 @@ class Solution:
         return ret
 
     @staticmethod
-    def generate(num_rows: int) -> List[List[int]]:
+    def generate(num_rows: int) -> list[list[int]]:
         """118.Pascal's Triangle"""
-        ret = list()
+        ret = []
         for i in range(num_rows):
-            row = list()
-            for j in range(0, i + 1):
+            row = []
+            for j in range(i + 1):
                 if j == 0 or j == i:
                     row.append(1)
                 else:
@@ -568,7 +571,7 @@ class Solution:
         return ret
 
     @staticmethod
-    def has_cycle(head: Optional[ListNode]) -> bool:
+    def has_cycle(head: ListNode | None) -> bool:
         """141.Linked List Cycle"""
         slow = fast = head
         while fast and fast.next:
@@ -579,7 +582,7 @@ class Solution:
         return False
 
     @staticmethod
-    def two_sum_ii(numbers: List[int], target: int) -> List[int]:
+    def two_sum_ii(numbers: list[int], target: int) -> list[int]:
         """167.Two Sum II - Input array is sorted"""
         left = 0
         right = len(numbers) - 1
@@ -594,7 +597,7 @@ class Solution:
         return [-1, -1]
 
     @staticmethod
-    def rotate(nums: List[int], k: int) -> None:
+    def rotate(nums: list[int], k: int) -> None:
         """189.Rotate Array"""
 
         # def reverse(nums: List[int], start: int, end: int):
@@ -614,7 +617,7 @@ class Solution:
         n = len(nums)
         k = k % n
         count = gcd(k, n)
-        for start in range(0, count):
+        for start in range(count):
             current = start
             prev = nums[start]
             while True:
@@ -625,7 +628,7 @@ class Solution:
                     break
 
     @staticmethod
-    def combination_sum3(k: int, n: int) -> List[List[int]]:
+    def combination_sum3(k: int, n: int) -> list[list[int]]:
         """216.Combination Sum III"""
         temp = []
         ans = []
@@ -677,7 +680,7 @@ class Solution:
         return ret
 
     @staticmethod
-    def move_zeroes(nums: List[int]) -> None:
+    def move_zeroes(nums: list[int]) -> None:
         """283.Move Zeroes"""
         n = len(nums)
         left = right = 0
@@ -688,7 +691,7 @@ class Solution:
             right += 1
 
     @staticmethod
-    def find_duplicate(nums: List[int]) -> int:
+    def find_duplicate(nums: list[int]) -> int:
         """287.Find the Duplicate Number"""
         slow = fast = 0
         while True:
@@ -703,7 +706,7 @@ class Solution:
         return slow
 
     @staticmethod
-    def search_v1(nums: List[int], target: int) -> int:
+    def search_v1(nums: list[int], target: int) -> int:
         left = 0
         right = len(nums) - 1
         while left <= right:
@@ -717,7 +720,7 @@ class Solution:
         return -1
 
     @staticmethod
-    def search_v2(nums: List[int], target: int) -> int:
+    def search_v2(nums: list[int], target: int) -> int:
         left = 0
         right = len(nums)
         while left < right:
@@ -779,7 +782,7 @@ class Solution:
             return a
 
     @staticmethod
-    def lexical_order(n: int) -> List[int]:
+    def lexical_order(n: int) -> list[int]:
         """386.Lexicographical Numbers"""
         ret = [0] * n
         num = 1
@@ -794,10 +797,10 @@ class Solution:
         return ret
 
     @staticmethod
-    def valid_utf8(data: List[int]) -> bool:
+    def valid_utf8(data: list[int]) -> bool:
         """393.UTF-8 Validation"""
         n = 0
-        for i in range(0, len(data)):
+        for i in range(len(data)):
             if n > 0:
                 if data[i] >> 6 != 2:
                     return False
@@ -830,7 +833,7 @@ class Solution:
     def count_segment(s: str) -> int:
         """434.Number of Segments in a String"""
         segment_count = 0
-        for i in range(0, len(s)):
+        for i in range(len(s)):
             if (i == 0 or s[i - 1] == " ") and s[i] != " ":
                 segment_count += 1
         return segment_count
@@ -907,7 +910,7 @@ class Solution:
         return res
 
     @staticmethod
-    def find_diagonal_order(matrix: List[List[int]]) -> List[int]:
+    def find_diagonal_order(matrix: list[list[int]]) -> list[int]:
         """498.Diagonal Traverse"""
         if matrix is None or len(matrix) == 0:
             return []
@@ -950,7 +953,7 @@ class Solution:
         return "".join(reversed(digits))
 
     @staticmethod
-    def change(amount: int, coins: List[int]) -> int:
+    def change(amount: int, coins: list[int]) -> int:
         """518.Coin Change II"""
         dp = [0] * (amount + 1)
         dp[0] = 1
@@ -972,7 +975,7 @@ class Solution:
         return f"{real1 * real2 - imag1 * imag2}+{real1 * imag2 + imag1 * real2}i"
 
     @staticmethod
-    def find_circle_num(is_connected: List[List[int]]) -> int:
+    def find_circle_num(is_connected: list[list[int]]) -> int:
         """547.Number of Provinces"""
 
         def dfs(row: int) -> None:
@@ -992,7 +995,7 @@ class Solution:
         return circles
 
     @staticmethod
-    def optimal_division(nums: List[int]) -> str:
+    def optimal_division(nums: list[int]) -> str:
         """553.Optimal Division"""
         if len(nums) == 1:
             return str(nums[0])
@@ -1001,18 +1004,18 @@ class Solution:
         return str(nums[0]) + "/(" + "/".join(map(str, nums[1:])) + ")"
 
     @staticmethod
-    def distribute_candies(candy_type: List[int]) -> int:
+    def distribute_candies(candy_type: list[int]) -> int:
         """575.Distribute Candies"""
         return min(len(candy_type) // 2, len(set(candy_type)))
 
     @staticmethod
-    def preorder(root: Optional[Node]) -> List[int]:
+    def preorder(root: Node | None) -> list[int]:
         """589.N-ary Tree Preorder Traversal"""
         ans = []
 
-        def dfs(node: Optional[Node]) -> None:
+        def dfs(node: Node | None) -> None:
             if node is None:
-                return None
+                return
             ans.append(node.val)
             for ch in node.children:
                 dfs(ch)
@@ -1021,11 +1024,11 @@ class Solution:
         return ans
 
     @staticmethod
-    def postorder(root: Optional[Node]) -> List[int]:
+    def postorder(root: Node | None) -> list[int]:
         """590.N-ary Tree Postorder Traversal"""
         ans = []
 
-        def dfs(node: Optional[Node]):
+        def dfs(node: Node | None):
             if node is None:
                 return
             for ch in node.children:
@@ -1036,7 +1039,7 @@ class Solution:
         return ans
 
     @staticmethod
-    def find_restaurant(list1: List[str], list2: List[str]) -> List[str]:
+    def find_restaurant(list1: list[str], list2: list[str]) -> list[str]:
         """599.Minimum Index Sum of Two Lists"""
         index = {s: i for i, s in enumerate(list1)}
         ans = []
@@ -1052,9 +1055,7 @@ class Solution:
         return ans
 
     @staticmethod
-    def add_one_row(
-            root: Optional[TreeNode], val: int, depth: int
-    ) -> Optional[TreeNode]:
+    def add_one_row(root: TreeNode | None, val: int, depth: int) -> TreeNode | None:
         """623.Add One Row to Tree"""
         if root is None:
             return
@@ -1069,7 +1070,7 @@ class Solution:
         return root
 
     @staticmethod
-    def find_longest_chain(pairs: List[List[int]]) -> int:
+    def find_longest_chain(pairs: list[list[int]]) -> int:
         """646.Maximum Length of Pair Chain"""
         curr, res = -inf, 0
         for x, y in sorted(pairs, key=lambda p: p[1]):
@@ -1079,10 +1080,10 @@ class Solution:
         return res
 
     @staticmethod
-    def find_duplicate_subtrees(root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
+    def find_duplicate_subtrees(root: TreeNode | None) -> list[TreeNode | None]:
         """652.Find Duplicate Subtrees"""
 
-        def dfs(node: Optional[TreeNode]) -> int:
+        def dfs(node: TreeNode | None) -> int:
             if not node:
                 return 0
 
@@ -1104,10 +1105,10 @@ class Solution:
         return list(repeat)
 
     @staticmethod
-    def print_tree(root: Optional[TreeNode]) -> List[List[str]]:
+    def print_tree(root: TreeNode | None) -> list[list[str]]:
         """655.Print Binary Tree"""
 
-        def calculate_depth(root: Optional[TreeNode]) -> int:
+        def calculate_depth(root: TreeNode | None) -> int:
             height = -1
             queue = [root]
             while queue:
@@ -1123,7 +1124,7 @@ class Solution:
 
         height = calculate_depth(root)
         m = height + 1
-        n = 2 ** m - 1
+        n = 2**m - 1
         res = [[""] * n for _ in range(m)]
         queue = deque([(root, 0, (n - 1) // 2)])
         while queue:
@@ -1136,7 +1137,7 @@ class Solution:
         return res
 
     @staticmethod
-    def find_closest_elements(arr: List[int], k: int, x: int) -> List[int]:
+    def find_closest_elements(arr: list[int], k: int, x: int) -> list[int]:
         """658.Find K Closest Elements"""
         right = bisect_left(arr, x)
         left = right - 1
@@ -1148,14 +1149,14 @@ class Solution:
                 left -= 1
             else:
                 right += 1
-        return arr[left + 1: right]
+        return arr[left + 1 : right]
 
     @staticmethod
-    def width_of_binary_tree(root: Optional[TreeNode]) -> int:
+    def width_of_binary_tree(root: TreeNode | None) -> int:
         """662.Maximum Width of Binary Tree"""
         level_min = {}
 
-        def dfs(node: Optional[TreeNode], depth: int, index: int) -> int:
+        def dfs(node: TreeNode | None, depth: int, index: int) -> int:
             if node is None:
                 return 0
             if depth not in level_min:
@@ -1172,7 +1173,7 @@ class Solution:
     def check_possibility(nums: list[int]) -> bool:
         """665.Non-decreasing Array"""
         count = 0
-        for i in range(0, len(nums) - 1):
+        for i in range(len(nums) - 1):
             x, y = nums[i], nums[i + 1]
             if x > y:
                 count += 1
@@ -1183,7 +1184,7 @@ class Solution:
         return True
 
     @staticmethod
-    def construct_array(n: int, k: int) -> List[int]:
+    def construct_array(n: int, k: int) -> list[int]:
         """667.Beautiful Arrangement II"""
         res = list(range(1, n - k))
         i, j = n - k, n
@@ -1195,7 +1196,7 @@ class Solution:
         return res
 
     @staticmethod
-    def trim_bst(root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+    def trim_bst(root: TreeNode | None, low: int, high: int) -> TreeNode | None:
         """669.Trim a Binary Search Tree"""
         while root and (root.val < low or root.val > high):
             root = root.right if root.val < low else root.left
@@ -1236,7 +1237,7 @@ class Solution:
     def flip_lights(n: int, presses: int) -> int:
         """672.Bulb Switcher II"""
         seen = set()
-        for i in range(2 ** 4):
+        for i in range(2**4):
             press_arr = [(i >> j) & 1 for j in range(4)]
             if sum(press_arr) % 2 == presses % 2 and sum(press_arr) <= presses:
                 status = press_arr[0] ^ press_arr[1] ^ press_arr[3]
@@ -1250,11 +1251,11 @@ class Solution:
         return len(seen)
 
     @staticmethod
-    def longest_univalue_path(root: Optional[TreeNode]) -> int:
+    def longest_univalue_path(root: TreeNode | None) -> int:
         """687.Longest Univalue Path"""
         res = 0
 
-        def dfs(node: Optional[TreeNode]) -> int:
+        def dfs(node: TreeNode | None) -> int:
             if node is None:
                 return 0
             left = dfs(node.left)
@@ -1269,7 +1270,7 @@ class Solution:
         return res
 
     @staticmethod
-    def self_dividing_number(left: int, right: int) -> List[int]:
+    def self_dividing_number(left: int, right: int) -> list[int]:
         """728.Self Dividing Numbers"""
 
         def is_self_dividing(num: int) -> bool:
@@ -1283,7 +1284,7 @@ class Solution:
         return [i for i in range(left, right + 1) if is_self_dividing(i)]
 
     @staticmethod
-    def next_greatest_letter(letters: List[str], target: str) -> str:
+    def next_greatest_letter(letters: list[str], target: str) -> str:
         """744.Find The Smallest Letter Greater Than Target"""
         return (
             letters[bisect_right(letters, target)]
@@ -1302,7 +1303,7 @@ class Solution:
         return res if target % 2 == 0 else res + 1 + res % 2
 
     @staticmethod
-    def order_of_largest_plus_sign(n: int, mines: List[List[int]]) -> int:
+    def order_of_largest_plus_sign(n: int, mines: list[list[int]]) -> int:
         """764.Largest Plus Sign"""
         dp = [[n] * n for _ in range(n)]
         banned = set(map(tuple, mines))
@@ -1332,7 +1333,7 @@ class Solution:
         return max(map(max, dp))
 
     @staticmethod
-    def max_chunks_to_sorted(arr: List[int]) -> int:
+    def max_chunks_to_sorted(arr: list[int]) -> int:
         """769.Max Chunks To Make Sorted"""
         res = maximum = 0
         for i, x in enumerate(arr):
@@ -1341,7 +1342,7 @@ class Solution:
         return res
 
     @staticmethod
-    def is_ideal_permutation(nums: List[int]) -> bool:
+    def is_ideal_permutation(nums: list[int]) -> bool:
         """775.Global and Local Inversions"""
         return all(abs(x - i) <= 1 for i, x in enumerate(nums))
 
@@ -1356,7 +1357,7 @@ class Solution:
         return res
 
     @staticmethod
-    def letter_case_permutation(s: str) -> List[str]:
+    def letter_case_permutation(s: str) -> list[str]:
         """784.Letter Case Permutation"""
         res = []
         m = sum(c.isalpha() for c in s)
@@ -1375,7 +1376,7 @@ class Solution:
     def num_tilings(n: int) -> int:
         """790.Domino and Tromino Tiling"""
 
-        def multiply(a: List[List[int]], b: List[List[int]]) -> List[List[int]]:
+        def multiply(a: list[list[int]], b: list[list[int]]) -> list[list[int]]:
             rows, columns, temp = len(a), len(b[0]), len(b)
             c = [[0] * columns for _ in range(rows)]
             for i in range(rows):
@@ -1384,7 +1385,7 @@ class Solution:
                         c[i][j] = (c[i][j] + a[i][k] * b[k][j]) % MOD
             return c
 
-        def matrix_power(mat: List[List[int]], n: int) -> List[List[int]]:
+        def matrix_power(mat: list[list[int]], n: int) -> list[list[int]]:
             ret = [
                 [1, 0, 0, 0],
                 [0, 1, 0, 0],
@@ -1422,7 +1423,7 @@ class Solution:
         return "".join(ans)
 
     @staticmethod
-    def num_matching_subseq(s: str, words: List[str]) -> int:
+    def num_matching_subseq(s: str, words: list[str]) -> int:
         """792.Number of Matching Subsequences"""
         p = defaultdict(list)
         for i, w in enumerate(words):
@@ -1469,7 +1470,7 @@ class Solution:
         return min(1, row[query_glass])
 
     @staticmethod
-    def min_swap(nums1: List[int], nums2: List[int]) -> int:
+    def min_swap(nums1: list[int], nums2: list[int]) -> int:
         """801.Minimum Swaps To Make Sequences Increasing"""
         n = len(nums1)
         a, b = 0, 1
@@ -1485,7 +1486,7 @@ class Solution:
         return min(a, b)
 
     @staticmethod
-    def unique_morse_representations(words: List[str]) -> int:
+    def unique_morse_representations(words: list[str]) -> int:
         """804.Unique Morse Code Words"""
         morse = [
             ".-",
@@ -1520,7 +1521,7 @@ class Solution:
         )
 
     @staticmethod
-    def split_array_same_average(nums: List[int]) -> bool:
+    def split_array_same_average(nums: list[int]) -> bool:
         """805.Split Array With Same Average"""
         n = len(nums)
         m = n // 2
@@ -1540,7 +1541,7 @@ class Solution:
         return False
 
     @staticmethod
-    def number_of_lines(widths: List[int], s: str) -> List[int]:
+    def number_of_lines(widths: list[int], s: str) -> list[int]:
         """806.Number of Lines To Write String"""
         max_width = 100
         lines, width = 1, 0
@@ -1553,7 +1554,7 @@ class Solution:
         return [lines, width]
 
     @staticmethod
-    def subdomain_visits(cpdomains: List[str]) -> List[str]:
+    def subdomain_visits(cpdomains: list[str]) -> list[str]:
         """811.Subdomain Visit Count"""
         count = Counter()
         for domain in cpdomains:
@@ -1561,15 +1562,15 @@ class Solution:
             c = int(c)
             count[s] += c
             while "." in s:
-                s = s[s.index(".") + 1:]
+                s = s[s.index(".") + 1 :]
                 count[s] += c
         return [f"{c} {s}" for s, c in count.items()]
 
     @staticmethod
-    def ambiguous_coordinates(s: str) -> List[str]:
+    def ambiguous_coordinates(s: str) -> list[str]:
         """816.Ambiguous Coordinates"""
 
-        def get_pos(s: str) -> List[str]:
+        def get_pos(s: str) -> list[str]:
             pos = []
             if s[0] != "0" or s == "0":
                 pos.append(s)
@@ -1581,12 +1582,12 @@ class Solution:
 
         n = len(s) - 2
         res = []
-        s = s[1: len(s) - 1]
-        for l in range(1, n):
-            lt = get_pos(s[:l])
+        s = s[1 : len(s) - 1]
+        for left in range(1, n):
+            lt = get_pos(s[:left])
             if len(lt) == 0:
                 continue
-            rt = get_pos(s[l:])
+            rt = get_pos(s[left:])
             if len(rt) == 0:
                 continue
             for i, j in product(lt, rt):
@@ -1594,7 +1595,7 @@ class Solution:
         return res
 
     @staticmethod
-    def num_components(head: Optional[ListNode], nums: List[int]) -> int:
+    def num_components(head: ListNode | None, nums: list[int]) -> int:
         """817.Linked List Components"""
         nums_set = set(nums)
         in_set = False
@@ -1668,7 +1669,7 @@ class Solution:
         return res
 
     @staticmethod
-    def min_cost_to_hire_worker(quality: List[int], wage: List[int], k: int) -> float:
+    def min_cost_to_hire_worker(quality: list[int], wage: list[int], k: int) -> float:
         """857.Minimum Cost to Hire K Workers"""
         pairs = sorted(zip(quality, wage), key=lambda p: p[1] / p[0])
         res = inf
@@ -1677,7 +1678,7 @@ class Solution:
         for q, w in pairs[: k - 1]:
             total_quality += q
             heappush(hire, -q)
-        for q, w in pairs[k - 1:]:
+        for q, w in pairs[k - 1 :]:
             total_quality += q
             heappush(hire, -q)
             res = min(res, w / q * total_quality)
@@ -1685,7 +1686,7 @@ class Solution:
         return res
 
     @staticmethod
-    def shortest_subarray(nums: List[int], k: int) -> int:
+    def shortest_subarray(nums: list[int], k: int) -> int:
         """862.Shortest Subarray with Sum at Least K"""
         pre_sum_array = [0]
         res = len(nums) + 1
@@ -1702,7 +1703,7 @@ class Solution:
         return res if res < len(nums) + 1 else -1
 
     @staticmethod
-    def advantage_count(nums1: List[int], nums2: List[int]) -> List[int]:
+    def advantage_count(nums1: list[int], nums2: list[int]) -> list[int]:
         """870.Advantage Shuffle"""
         n = len(nums1)
         index1, index2 = list(range(n)), list(range(n))
@@ -1729,7 +1730,7 @@ class Solution:
         return slow
 
     @staticmethod
-    def num_rescue_boats(people: List[int], limit: int) -> int:
+    def num_rescue_boats(people: list[int], limit: int) -> int:
         """881.Boats to Save People"""
         people.sort()
         left, right = 0, len(people) - 1
@@ -1744,7 +1745,7 @@ class Solution:
         return res
 
     @staticmethod
-    def projection_area(grid: List[List[int]]) -> int:
+    def projection_area(grid: list[list[int]]) -> int:
         """883.Projection Area of 3D Shapes"""
         xy_area = sum(v > 0 for row in grid for v in row)
         yz_area = sum(map(max, zip(*grid)))
@@ -1752,7 +1753,7 @@ class Solution:
         return xy_area + yz_area + zx_area
 
     @staticmethod
-    def possible_bipartition(n: int, dislikes: List[List[int]]) -> bool:
+    def possible_bipartition(n: int, dislikes: list[list[int]]) -> bool:
         """886.Possible Bipartition"""
         group = [[] for _ in range(n)]
         for x, y in dislikes:
@@ -1767,7 +1768,7 @@ class Solution:
         return all(c or dfs(i, 1) for i, c in enumerate(color))
 
     @staticmethod
-    def total_fruit(fruits: List[int]) -> int:
+    def total_fruit(fruits: list[int]) -> int:
         """904.Fruit Into Baskets"""
         counter = Counter()
         left = res = 0
@@ -1782,7 +1783,7 @@ class Solution:
         return res
 
     @staticmethod
-    def sort_array_by_parity(nums: List[int]) -> List[int]:
+    def sort_array_by_parity(nums: list[int]) -> list[int]:
         """905.Sort Array By Parity"""
         left, right = 0, len(nums) - 1
         while left < right:
@@ -1797,7 +1798,7 @@ class Solution:
         return nums
 
     @staticmethod
-    def sum_subarray_mins(arr: List[int]) -> int:
+    def sum_subarray_mins(arr: list[int]) -> int:
         """907.Sum of Subarray Minimums"""
         n = len(arr)
         mono_stack = []
@@ -1813,7 +1814,7 @@ class Solution:
         return res
 
     @staticmethod
-    def partition_disjoint(nums: List[int]) -> int:
+    def partition_disjoint(nums: list[int]) -> int:
         """915.Partition Array into Disjoint Intervals"""
         n = len(nums)
         curr_max = left_max = nums[0]
@@ -1838,7 +1839,7 @@ class Solution:
         return res + count
 
     @staticmethod
-    def three_equal_parts(arr: List[int]) -> List[int]:
+    def three_equal_parts(arr: list[int]) -> list[int]:
         """927.Three Equal Parts"""
         total = sum(arr)
         if total % 3:
@@ -1863,8 +1864,8 @@ class Solution:
             i = 0
             while third + i < n:
                 if (
-                        arr[first + i] != arr[second + i]
-                        or arr[first + i] != arr[third + i]
+                    arr[first + i] != arr[second + i]
+                    or arr[first + i] != arr[third + i]
                 ):
                     return [-1, -1]
                 i += 1
@@ -1872,7 +1873,7 @@ class Solution:
         return [-1, -1]
 
     @staticmethod
-    def shortest_bridge(grid: List[List[int]]) -> int:
+    def shortest_bridge(grid: list[list[int]]) -> int:
         """934.Shortest Bridge"""
         n = len(grid)
         for i, row in enumerate(grid):
@@ -1913,9 +1914,9 @@ class Solution:
         if root.val < low:
             return Solution.range_sum_bst(root.right, low, high)
         return (
-                root.val
-                + Solution.range_sum_bst(root.left, low, high)
-                + Solution.range_sum_bst(root.right, low, high)
+            root.val
+            + Solution.range_sum_bst(root.left, low, high)
+            + Solution.range_sum_bst(root.right, low, high)
         )
 
     @staticmethod
@@ -1924,12 +1925,12 @@ class Solution:
         alphas = [0] * 26
         res = 0
         for i, ch in enumerate(s):
-            index = ord(s[i]) - ord("a")
+            index = ord(ch) - ord("a")
             alphas[index], res = (res + 1) % MOD, (res * 2 + 1 - alphas[index]) % MOD
         return res
 
     @staticmethod
-    def di_string_match(s: str) -> List[int]:
+    def di_string_match(s: str) -> list[int]:
         """942.DI String Match"""
         n = len(s)
         lo, hi = 0, n
@@ -1945,12 +1946,12 @@ class Solution:
         return perm
 
     @staticmethod
-    def min_deletion_size(strs: List[str]) -> int:
+    def min_deletion_size(strs: list[str]) -> int:
         """944.Delete Columns to Make Sorted"""
         return sum(any(x > y for x, y in pairwise(col)) for col in zip(*strs))
 
     @staticmethod
-    def validate_stack_sequences(pushed: List[int], popped: List[int]) -> bool:
+    def validate_stack_sequences(pushed: list[int], popped: list[int]) -> bool:
         """946.Validate Stack Sequences"""
         stack, j = [], 0
         for x in pushed:
@@ -1961,7 +1962,7 @@ class Solution:
         return len(stack) == 0
 
     @staticmethod
-    def repeated_n_times(nums: List[int]) -> int:
+    def repeated_n_times(nums: list[int]) -> int:
         """961.N-Repeated Element in Size 2N Array"""
         found = set()
         for num in nums:
@@ -1971,7 +1972,7 @@ class Solution:
         return -1
 
     @staticmethod
-    def sorted_squares(nums: List[int]) -> List[int]:
+    def sorted_squares(nums: list[int]) -> list[int]:
         """977.Squares of a Sorted Array"""
         n = len(nums)
         ans = [0] * n
@@ -1987,7 +1988,7 @@ class Solution:
         return ans
 
     @staticmethod
-    def insert_into_max_tree(root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+    def insert_into_max_tree(root: TreeNode | None, val: int) -> TreeNode | None:
         """998.Maximum Binary Tree II"""
         parent, curr = None, root
         while curr:
@@ -2056,7 +2057,7 @@ class Solution:
         return "".join(res)
 
     @staticmethod
-    def min_subsequence(nums: List[int]) -> List[int]:
+    def min_subsequence(nums: list[int]) -> list[int]:
         """1403.Minimum Subsequence in Non-Increasing Order"""
         nums.sort(reverse=True)
         total, curr = sum(nums), 0
@@ -2086,7 +2087,7 @@ class Solution:
         return "".join(t)
 
     @staticmethod
-    def build_array(target: List[int], n: int) -> List[str]:
+    def build_array(target: list[int], n: int) -> list[str]:
         """1441.Build an Array With Stack Operations"""
         res = []
         prev = 0
@@ -2100,7 +2101,7 @@ class Solution:
 
     @staticmethod
     def busy_student(
-            start_time: List[int], end_time: List[int], query_time: int
+        start_time: list[int], end_time: list[int], query_time: int
     ) -> int:
         """1450.Number of Students Doing Homework at a Given Time"""
         return sum(s <= query_time <= e for s, e in zip(start_time, end_time))
@@ -2129,14 +2130,14 @@ class Solution:
         return -1
 
     @staticmethod
-    def can_be_equal(target: List[int], arr: List[int]) -> bool:
+    def can_be_equal(target: list[int], arr: list[int]) -> bool:
         """1460.Make Two Arrays Equal by Reversing Sub-arrays"""
         target.sort()
         arr.sort()
         return target == arr
 
     @staticmethod
-    def shuffle(nums: List[int], n: int) -> List[int]:
+    def shuffle(nums: list[int], n: int) -> list[int]:
         """1470.Shuffle the Array"""
         res = [0] * (2 * n)
         for i in range(n):
@@ -2145,7 +2146,7 @@ class Solution:
         return res
 
     @staticmethod
-    def final_prices(prices: List[int]) -> List[int]:
+    def final_prices(prices: list[int]) -> list[int]:
         """1475.Final Prices With a Special Discount in a Shop"""
         n = len(prices)
         res = [0] * n
@@ -2159,7 +2160,7 @@ class Solution:
         return res
 
     @staticmethod
-    def can_make_arithmetic_progression(arr: List[int]) -> bool:
+    def can_make_arithmetic_progression(arr: list[int]) -> bool:
         """1502.Can Make Arithmetic Progression From Sequence"""
         arr.sort()
         for i in range(1, len(arr) - 1):
@@ -2176,14 +2177,14 @@ class Solution:
             if arr[i] == "?":
                 for ch in "abc":
                     if not (
-                            i > 0 and arr[i - 1] == ch or i < n - 1 and arr[i + 1] == ch
+                        i > 0 and arr[i - 1] == ch or i < n - 1 and arr[i + 1] == ch
                     ):
                         arr[i] = ch
                         break
         return "".join(arr)
 
     @staticmethod
-    def num_special(mat: List[List[int]]) -> int:
+    def num_special(mat: list[list[int]]) -> int:
         """1582.Special Positions in a Binary Matrix"""
         for i, row in enumerate(mat):
             count = sum(row) - (i == 0)
@@ -2204,7 +2205,7 @@ class Solution:
         return (" " * per_space).join(words) + " " * rest_space
 
     @staticmethod
-    def min_operations(logs: List[str]) -> int:
+    def min_operations(logs: list[str]) -> int:
         """1598.Crawler Log Folder"""
         depth = 0
         for _, log in enumerate(logs):
@@ -2218,7 +2219,7 @@ class Solution:
         return depth
 
     @staticmethod
-    def special_array(nums: List[int]) -> int:
+    def special_array(nums: list[int]) -> int:
         """1608.Special Array With X Elements Greater Than or Equal X"""
         nums.sort(reverse=True)
         n = len(nums)
@@ -2228,14 +2229,14 @@ class Solution:
         return -1
 
     @staticmethod
-    def trim_mean(arr: List[int]) -> float:
+    def trim_mean(arr: list[int]) -> float:
         """1619.Mean of Array After Removing Some Elements"""
         arr.sort()
         n = len(arr)
-        return sum(arr[n // 20: -n // 20]) / (n * 0.9)
+        return sum(arr[n // 20 : -n // 20]) / (n * 0.9)
 
     @staticmethod
-    def best_coordinate(towers: List[List[int]], radius: int) -> List[int]:
+    def best_coordinate(towers: list[list[int]], radius: int) -> list[int]:
         """1620.Coordinate With Maximum Network Quality"""
         x_max = max(t[0] for t in towers)
         y_max = max(t[1] for t in towers)
@@ -2245,8 +2246,8 @@ class Solution:
                 quality = 0
                 for tx, ty, q in towers:
                     d = (x - tx) ** 2 + (y - ty) ** 2
-                    if d <= radius ** 2:
-                        quality += int(q / (1 + d ** 0.5))
+                    if d <= radius**2:
+                        quality += int(q / (1 + d**0.5))
                 if quality > max_quality:
                     cx, cy, max_quality = x, y, quality
         return [cx, cy]
@@ -2264,14 +2265,14 @@ class Solution:
         return res
 
     @staticmethod
-    def frequency_sort(nums: List[int]) -> List[int]:
+    def frequency_sort(nums: list[int]) -> list[int]:
         """1636.Sort Array by Increasing Frequency"""
         count = Counter(nums)
         nums.sort(key=lambda x: (count[x], -x))
         return nums
 
     @staticmethod
-    def min_operations2(nums: List[int], x: int) -> int:
+    def min_operations2(nums: list[int], x: int) -> int:
         """1658.Minimum Operations to Reduce X to Zero"""
         n = len(nums)
         total = sum(nums)
@@ -2292,7 +2293,7 @@ class Solution:
         return -1 if res > n else res
 
     @staticmethod
-    def array_strings_are_equal(word1: List[str], word2: List[str]) -> bool:
+    def array_strings_are_equal(word1: list[str], word2: list[str]) -> bool:
         """1662.Check If Two String Arrays are Equivalent"""
         p1 = p2 = 0  # index of word
         i = j = 0  # index of character
@@ -2347,7 +2348,7 @@ class Solution:
         return "".join(res)
 
     @staticmethod
-    def count_consistent_strings(allowed: str, words: List[str]) -> int:
+    def count_consistent_strings(allowed: str, words: list[str]) -> int:
         """1684.Count the Number of Consistent Strings"""
         mask = 0
         for c in allowed:
@@ -2372,20 +2373,20 @@ class Solution:
         res = []
         while n > 0:
             if n > 4:
-                res.append("".join(digits[pt: pt + 3]))
+                res.append("".join(digits[pt : pt + 3]))
                 pt += 3
                 n -= 3
             else:
                 if n == 4:
-                    res.append("".join(digits[pt: pt + 2]))
-                    res.append("".join(digits[pt + 2: pt + 4]))
+                    res.append("".join(digits[pt : pt + 2]))
+                    res.append("".join(digits[pt + 2 : pt + 4]))
                 else:
-                    res.append("".join(digits[pt: pt + n]))
+                    res.append("".join(digits[pt : pt + n]))
                 break
         return "-".join(res)
 
     @staticmethod
-    def count_students(students: List[int], sandwiches: List[int]) -> int:
+    def count_students(students: list[int], sandwiches: list[int]) -> int:
         """1700.Number of Students Unable to Eat Lunch"""
         square = sum(students)
         circular = len(students) - square
@@ -2402,11 +2403,11 @@ class Solution:
     def halves_are_alike(s: str) -> bool:
         """1704.Determine if String Halves Are Alike"""
         vowels = "aeiouAEIOU"
-        a, b = s[: len(s) // 2], s[len(s) // 2:]
+        a, b = s[: len(s) // 2], s[len(s) // 2 :]
         return sum(c in vowels for c in a) == sum(c in vowels for c in b)
 
     @staticmethod
-    def maximum_units(box_types: List[List[int]], truck_size: int) -> int:
+    def maximum_units(box_types: list[list[int]], truck_size: int) -> int:
         """1710.Maximum Units on a Truck"""
         box_types.sort(key=lambda x: x[1], reverse=True)
         res = 0
@@ -2419,7 +2420,7 @@ class Solution:
         return res
 
     @staticmethod
-    def largest_altitude(gain: List[int]) -> int:
+    def largest_altitude(gain: list[int]) -> int:
         """1732.Find the Highest Altitude"""
         res, start = 0, 0
         for item in gain:
@@ -2458,7 +2459,7 @@ class Solution:
         return "".join(res)
 
     @staticmethod
-    def count_matches(items: List[List[str]], rule_key: str, rule_value: str) -> int:
+    def count_matches(items: list[list[str]], rule_key: str, rule_value: str) -> int:
         """1773.Count Items Matching a Rule"""
         key_index = {"type": 0, "color": 1, "name": 2}[rule_key]
         return sum(item[key_index] == rule_value for item in items)
@@ -2483,7 +2484,7 @@ class Solution:
         return i < 0 or j >= 0 and s1[i] == s2[j] and s1[j] == s2[i]
 
     @staticmethod
-    def max_ascending_sum(nums: List[int]) -> int:
+    def max_ascending_sum(nums: list[int]) -> int:
         """1800.Maximum Ascending Subarray Sum"""
         res = i = 0
         n = len(nums)
@@ -2505,38 +2506,38 @@ class Solution:
             left, right = right, left
 
         upper = (
-                ((left + 1) ** 2 - 3 * (left + 1)) // 2
-                + left
-                + 1
-                + (left + 1)
-                + ((left + 1) ** 2 - 3 * (left + 1)) // 2
-                + right
-                + 1
+            ((left + 1) ** 2 - 3 * (left + 1)) // 2
+            + left
+            + 1
+            + (left + 1)
+            + ((left + 1) ** 2 - 3 * (left + 1)) // 2
+            + right
+            + 1
         )
         if upper >= max_sum:
             a = 1
             b = -2
             c = left + right + 2 - max_sum
-            return floor(((-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)))
+            return floor((-b + (b**2 - 4 * a * c) ** 0.5) / (2 * a))
         upper = (
-                (2 * (right + 1) - left - 1) * left // 2
-                + (right + 1)
-                + ((right + 1) ** 2 - 3 * (right + 1)) // 2
-                + right
-                + 1
+            (2 * (right + 1) - left - 1) * left // 2
+            + (right + 1)
+            + ((right + 1) ** 2 - 3 * (right + 1)) // 2
+            + right
+            + 1
         )
         if upper >= max_sum:
             a = 1 / 2
             b = left + 1 - 3 / 2
             c = right + 1 + (-left - 1) * left / 2 - max_sum
-            return floor(((-b + (b ** 2 - 4 * a * c) ** 0.5) / (2 * a)))
+            return floor((-b + (b**2 - 4 * a * c) ** 0.5) / (2 * a))
         else:
             a = left + right + 1
-            b = (-(left ** 2) - left - right ** 2 - right) / 2 - max_sum
+            b = (-(left**2) - left - right**2 - right) / 2 - max_sum
             return floor(-b / a)
 
     @staticmethod
-    def array_sign(nums: List[int]) -> int:
+    def array_sign(nums: list[int]) -> int:
         """1822.Sign of the Product of an Array"""
         sign = 1
         for num in nums:
@@ -2555,7 +2556,7 @@ class Solution:
         return winner
 
     @staticmethod
-    def pivot_index(nums: List[int]) -> int:
+    def pivot_index(nums: list[int]) -> int:
         """1991.Find the Middle Index in Array"""
         total = sum(nums)
         sum_tmp = 0
@@ -2566,7 +2567,7 @@ class Solution:
         return -1
 
     @staticmethod
-    def first_daya_been_in_all_rooms(next_visit: List[int]) -> int:
+    def first_daya_been_in_all_rooms(next_visit: list[int]) -> int:
         """1997.First Day When You Have Been in All the Rooms"""
         n = len(next_visit)
         dp = [0] * n
@@ -2580,7 +2581,7 @@ class Solution:
         return dp[n - 2]
 
     @staticmethod
-    def count_k_difference(nums: List[int], k: int) -> int:
+    def count_k_difference(nums: list[int], k: int) -> int:
         """2006.Count Number of Pairs With Absolute Difference K"""
         res = 0
         cnt = Counter()
@@ -2590,12 +2591,12 @@ class Solution:
         return res
 
     @staticmethod
-    def final_value_after_operations(operations: List[str]) -> int:
+    def final_value_after_operations(operations: list[str]) -> int:
         """2011.Final Value of Variable After Performing Operations"""
         return sum(1 if op[1] == "+" else -1 for op in operations)
 
     @staticmethod
-    def maximum_difference(nums: List[int]) -> int:
+    def maximum_difference(nums: list[int]) -> int:
         """2016.Maximum Difference Between Increasing Elements"""
         n = len(nums)
         ans, pre_min = -1, nums[0]
@@ -2619,8 +2620,8 @@ class Solution:
 
     @staticmethod
     def two_out_of_three(
-            nums1: List[int], nums2: List[int], nums3: List[int]
-    ) -> List[int]:
+        nums1: list[int], nums2: list[int], nums3: list[int]
+    ) -> list[int]:
         """2032.Two Out of Three"""
         mask = defaultdict(int)
         for i, nums in enumerate((nums1, nums2, nums3)):
@@ -2629,7 +2630,7 @@ class Solution:
         return [x for x, m in mask.items() if m & (m - 1)]
 
     @staticmethod
-    def min_moves_to_seat(seats: List[int], students: List[int]) -> int:
+    def min_moves_to_seat(seats: list[int], students: list[int]) -> int:
         """2037.Minimum Number of Moves to Seat Everyone"""
         seats.sort()
         students.sort()
@@ -2654,7 +2655,7 @@ class Solution:
         return True
 
     @staticmethod
-    def count_max_or_subsets(nums: List[int]) -> int:
+    def count_max_or_subsets(nums: list[int]) -> int:
         """2044.Count Number of Maximum Bitwise-OR Subsets"""
         max_or, cnt = 0, 0
 
@@ -2673,18 +2674,18 @@ class Solution:
         return cnt
 
     @staticmethod
-    def plates_between_candles(s: str, queries: List[List[int]]) -> List[int]:
+    def plates_between_candles(s: str, queries: list[list[int]]) -> list[int]:
         """2055.Plates Between Candles"""
         n = len(s)
         pre_sum, total = [0] * n, 0
-        left, l = [0] * n, -1
+        left, right = [0] * n, -1
         for i, ch in enumerate(s):
             if ch == "*":
                 total += 1
             else:
-                l = i
+                right = i
             pre_sum[i] = total
-            left[i] = l
+            left[i] = right
         right, r = [0] * n, -1
         for i in range(n - 1, -1, -1):
             if s[i] == "|":
@@ -2712,7 +2713,7 @@ class Solution:
         return res - 1
 
     @staticmethod
-    def prefix_count(words: List[str], pref: str) -> int:
+    def prefix_count(words: list[str], pref: str) -> int:
         """2185.Counting Words With a Given Prefix"""
         return sum(word.startswith(pref) for word in words)
 
@@ -2724,9 +2725,10 @@ class Solution:
             if ch in seen:
                 return ch
             seen.add(ch)
+        return ''
 
     @staticmethod
-    def count_ways(ranges: List[List[int]]) -> int:
+    def count_ways(ranges: list[list[int]]) -> int:
         """2580.Count Ways to Group Overlapping Ranges"""
         ranges.sort()
         n = len(ranges)
@@ -2743,10 +2745,10 @@ class Solution:
         return res
 
     @staticmethod
-    def max_div_score(nums: List[int], divisors: List[int]) -> int:
+    def max_div_score(nums: list[int], divisors: list[int]) -> int:
         """2644.Find the Maximum Divisibility Score"""
         cnt, res = -1, 0
-        for i in range(0, len(divisors)):
+        for i in range(len(divisors)):
             tmp = sum(1 for num in nums if num % divisors[i] == 0)
             if (tmp > cnt) or tmp == cnt and divisors[i] < res:
                 cnt = tmp
@@ -2759,7 +2761,7 @@ class Solution:
         return num + 2 * t
 
     @staticmethod
-    def minimum_sum(nums: List[int]) -> int:
+    def minimum_sum(nums: list[int]) -> int:
         """2908.Minimum Sum of Mountain Triplets I"""
         n = len(nums)
         res = mini = 1000
@@ -2785,7 +2787,7 @@ class Solution:
         return res
 
     @staticmethod
-    def minimum_added_coins(coins: List[int], target: int) -> int:
+    def minimum_added_coins(coins: list[int], target: int) -> int:
         """2952. Minimum Number of Coins to be Added"""
         coins.sort()
         res, x = 0, 1
@@ -2801,7 +2803,7 @@ class Solution:
         return res
 
     @staticmethod
-    def get_final_state(nums: List[int], k: int, multiplier: int) -> List[int]:
+    def get_final_state(nums: list[int], k: int, multiplier: int) -> list[int]:
         """3264. Final Array State After K Multiplication Operations I"""
         if multiplier == 1:
             return nums
@@ -2817,7 +2819,7 @@ class Solution:
         return [element for element, _ in pq]
 
     @staticmethod
-    def get_sneaky_numbers(nums: List[int]) -> List[int]:
+    def get_sneaky_numbers(nums: list[int]) -> list[int]:
         """3289. The Two Sneaky Numbers of Digitville"""
         n = len(nums) - 2
         a = -n * (n - 1) // 2

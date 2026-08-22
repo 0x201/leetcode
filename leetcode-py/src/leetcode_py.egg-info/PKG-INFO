@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: leetcode-py
+Version: 0.1.0
+Summary: LeetCode solution implemented in python
+Requires-Python: >=3.14
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# LeetCode solution implemented in Python3
+
+## Requirements
+
+> [uv](https://docs.astral.sh/uv/getting-started/installation/)
+
+## Run
+
+### Install packages
+
+```bash
+uv sync
+```
+
+### Run unit test
+
+```bash
+uv run coverage_report.py
+```

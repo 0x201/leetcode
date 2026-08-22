@@ -1,4 +1,5 @@
 import pytest
+
 from src.leetcode.all_one import AllOne
 
 

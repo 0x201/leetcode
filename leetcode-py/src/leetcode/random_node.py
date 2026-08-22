@@ -1,12 +1,10 @@
 from random import randrange
 
-from typing import Optional
-
 from src.data_structures.list_node import ListNode
 
 
-class RandomNode(object):
-    def __init__(self, head: Optional[ListNode]):
+class RandomNode:
+    def __init__(self, head: ListNode | None):
         self.head = head
 
     def get_random(self) -> int:

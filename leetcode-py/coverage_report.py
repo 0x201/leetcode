@@ -1,21 +1,16 @@
-import coverage
-import pytest
-import sys
 import datetime
 import os
+import sys
+
+import coverage
+import pytest
 
 
 def run_tests_with_coverage():
     cov = coverage.Coverage(
-        source=['./src'],
-        omit=[
-            'test/*',
-            '*/__pycache__/*',
-            '*/venv/*',
-            '*/env/*',
-            '*/virtualenv/*'
-        ],
-        config_file=True
+        source=["./src"],
+        omit=["test/*", "*/__pycache__/*", "*/venv/*", "*/env/*", "*/virtualenv/*"],
+        config_file=True,
     )
 
     print("Starting to collect coverage data...")
@@ -23,11 +18,7 @@ def run_tests_with_coverage():
 
     try:
         print("Running pytest tests...")
-        exit_code = pytest.main([
-            './test',
-            '-v',
-            '--tb=short'
-        ])
+        exit_code = pytest.main(["./test", "-v", "--tb=short"])
 
     except Exception as e:
         print(f"Encountered an error while running tests: {e}")
@@ -52,19 +43,19 @@ def generate_coverage_reports():
 
     xml_file = f"coverage_reports/coverage_{timestamp}.xml"
     cov.xml_report(outfile=xml_file)
-    reports['xml'] = xml_file
+    reports["xml"] = xml_file
 
     json_file = f"coverage_reports/coverage_{timestamp}.json"
     cov.json_report(outfile=json_file)
-    reports['json'] = json_file
+    reports["json"] = json_file
 
     lcov_file = f"coverage_reports/coverage_{timestamp}.lcov"
     cov.lcov_report(outfile=lcov_file)
-    reports['lcov'] = lcov_file
+    reports["lcov"] = lcov_file
 
     html_dir = f"coverage_reports/htmlcov_{timestamp}"
     cov.html_report(directory=html_dir)
-    reports['html'] = html_dir
+    reports["html"] = html_dir
 
     print("\n" + "=" * 50)
     print("Summary of coverage:")

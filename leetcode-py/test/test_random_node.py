@@ -1,4 +1,5 @@
 import pytest
+
 from src.leetcode.random_node import RandomNode
 from src.util import Util
 

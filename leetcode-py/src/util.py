@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 from collections import deque
+
 from src.data_structures.list_node import ListNode
-from src.data_structures.tree_node import TreeNode
 from src.data_structures.node import Node
-from typing import List, Optional
+from src.data_structures.tree_node import TreeNode
 
 
 class Util:
     @staticmethod
-    def generate_list_node(nodes: List[int]) -> Optional[ListNode]:
+    def generate_list_node(nodes: list[int]) -> ListNode | None:
         """
         Generate a linked-list with a list
 
@@ -20,15 +22,15 @@ class Util:
         Optional[ListNode]: The head of the linked-list
 
         """
-        head = ListNode(0)
-        dummy = head
+        dummy = ListNode(0)
+        curr = dummy
         for node in nodes:
-            dummy.next = ListNode(node)
-            dummy = dummy.next
-        return head.next
+            curr.next = ListNode(node)
+            curr = curr.next
+        return dummy.next
 
     @staticmethod
-    def list_node_to_string(head: Optional[ListNode], sep: str = "->") -> str:
+    def list_node_to_string(head: ListNode | None, sep: str = "->") -> str:
         """
 
         Convert a linked-list to string
@@ -44,41 +46,38 @@ class Util:
         str: The string representation of the linked-list
 
         """
+        if head is None:
+            return ""
 
-        def detect_cycle(node: Optional[ListNode]) -> Optional[ListNode]:
-            if node is None:
-                return None
-
-            slow = fast = node
-            while fast is not None:
-                slow = slow.next
-                if fast.next is not None:
-                    fast = fast.next.next
-                else:
-                    return None
-                if fast == slow:
-                    ptr = node
-                    while ptr != slow:
-                        ptr = ptr.next
-                        slow = slow.next
-                    return ptr
-            return None
-
-        cycle_node = detect_cycle(head)
-
-        res = ""
-        while head:
-            res += f"{head.val}"
-            if head.next:
-                res += sep
-            head = head.next
-            if head == cycle_node and head and cycle_node:
-                res += f"{cycle_node.val}{sep}..."
+        seen: set[ListNode] = set()
+        cycle_node: ListNode | None = None
+        curr: ListNode = head
+        while curr is not None:
+            if curr in seen:
+                cycle_node: ListNode = curr
                 break
-        return res
+            seen.add(curr)
+            curr: ListNode | None = curr.next
+
+        parts: list[str] = []
+        curr: ListNode = head
+        visited: set[ListNode] = set()
+        while curr is not None:
+            if curr in visited:
+                break
+            visited.add(curr)
+            parts.append(str(curr.val))
+            if curr.next is not None:
+                parts.append(sep)
+            curr: ListNode | None = curr.next
+            if curr is not None and curr == cycle_node:
+                parts.append(f"{cycle_node.val}{sep}...")
+                break
+
+        return "".join(parts)
 
     @staticmethod
-    def list_node_to_list(head: Optional[ListNode]) -> List[int]:
+    def list_node_to_list(head: ListNode | None) -> list[int]:
         """
         Convert a linked-list to a list
 
@@ -88,14 +87,15 @@ class Util:
         Returns:
             List[int]: The list of node values
         """
-        res = []
-        while head:
-            res.append(head.val)
-            head = head.next
+        res: list[int] = []
+        curr: ListNode | None = head
+        while curr is not None:
+            res.append(curr.val)
+            curr: ListNode | None = curr.next
         return res
 
     @staticmethod
-    def generate_tree_node(nums: List[int | None]) -> Optional[TreeNode]:
+    def generate_tree_node(nums: list[int | None]) -> TreeNode | None:
         """
 
         Generate a binary tree node
@@ -109,30 +109,33 @@ class Util:
         Optional[TreeNode]: The root node of binary tree
 
         """
-        if not nums or len(nums) == 0 or not nums[0]:
+        if not nums or nums[0] is None:
             return None
 
         root = TreeNode(nums[0])
-        q = [root]
-        fill_left = True
-        for i in range(1, len(nums)):
-            node = TreeNode(nums[i]) if nums[i] is not None else None
-            if fill_left:
-                q[0].left = node
-                fill_left = False
-            else:
-                q[0].right = node
-                fill_left = True
+        queue: deque[TreeNode] = deque([root])
+        i = 1
+        n: int = len(nums)
 
-            if node is not None:
-                q.append(node)
+        while queue and i < n:
+            parent: TreeNode = queue.popleft()
 
-            if fill_left:
-                q.pop(0)
+            if i < n:
+                val: int | None = nums[i]
+                if val is not None:
+                    parent.left = TreeNode(val)
+                    queue.append(parent.left)
+                i += 1
+            if i < n:
+                val: int | None = nums[i]
+                if val is not None:
+                    parent.right = TreeNode(val)
+                    queue.append(parent.right)
+                i += 1
         return root
 
     @staticmethod
-    def generate_n_tree_node(nums: List[Optional[int]]) -> Optional[Node]:
+    def generate_n_tree_node(nums: list[int | None]) -> Node | None:
         """
 
         Generate an n-ary tree node with a list
@@ -145,28 +148,42 @@ class Util:
 
         Optional[Node]: The root node of n-ary tree
         """
-        if not nums or len(nums) == 0 or not nums[0]:
+        if not nums or nums[0] is None:
             return None
 
         root = Node(nums[0], [])
-        q = [root]
-        for i in range(1, len(nums)):
-            if nums[i] is not None:
-                parent = q[0]
+        i = 1
+        n: int = len(nums)
+        if i < n and nums[i] is None:
+            i += 1
+
+        queue: deque[Node] = deque()
+        while i < n and nums[i] is not None:
+            child = Node(nums[i], [])
+            root.children.append(child)
+            queue.append(child)
+            i += 1
+        if i < n and nums[i] is None:
+            i += 1
+
+        while queue and i < n:
+            parent = queue.popleft()
+            while i < n and nums[i] is not None:
                 child = Node(nums[i], [])
                 parent.children.append(child)
-                q.append(child)
-            elif nums[i] is None and len(q) < 2:
-                continue
-            else:
-                q.pop(0)
+                queue.append(child)
+                i += 1
+            if i < n and nums[i] is None:
+                i += 1
+
         return root
 
     @staticmethod
-    def level_traverse(root: Optional[TreeNode]) -> List[int]:
-        queue: deque[TreeNode] = deque()
-        queue.append(root)
-        res = []
+    def level_traverse(root: TreeNode | None) -> list[int]:
+        if root is None:
+            return []
+        queue: deque[TreeNode] = deque([root])
+        res: list[int] = []
         while queue:
             node: TreeNode = queue.popleft()
             res.append(node.val)

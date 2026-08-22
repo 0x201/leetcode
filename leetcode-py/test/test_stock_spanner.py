@@ -1,5 +1,5 @@
-from typing import List
 import pytest
+
 from src.leetcode.stock_spanner import StockSpanner
 
 
@@ -21,7 +21,7 @@ class TestStockSpanner:
             ),
         ],
     )
-    def test_stock_spanner(self, prices: List[int], expected: List[int]):
+    def test_stock_spanner(self, prices: list[int], expected: list[int]):
         stock_spanner = StockSpanner()
         actual = []
         for price in prices:

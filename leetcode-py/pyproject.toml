@@ -3,14 +3,16 @@ name = "leetcode-py"
 version = "0.1.0"
 description = "LeetCode solution implemented in python"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = []
 [dependency-groups]
 dev = [
-    "black>=25.1.0",
-    "coverage>=7.7.1",
-    "pytest>=8.3.5",
-    "pytest-asyncio>=0.26.0",
+    "coverage>=7.15.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "questionary>=2.1.1",
+    "ruff>=0.16.4",
+    "ty>=0.0.73",
 ]
 
 
@@ -21,3 +23,15 @@ default = true
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "session"
 
+[tool.ruff.lint]
+select = [
+    "E", "F", "W", "I", "UP"
+]
+
+[tool.uv]
+package = true
+
+
+[project.scripts]
+convert-testset = "coverage_report:main"
+upgrader = "upgrader:main"

@@ -1,7 +1,7 @@
-from typing import List
-
 import pytest
+
 from src.data_structures.list_node import ListNode
+from src.data_structures.node import Node
 from src.data_structures.tree_node import TreeNode
 from src.util import Util
 
@@ -15,7 +15,7 @@ class TestUtil:
             ([3, 3], "3->3"),
         ],
     )
-    def test_generate_list_node(self, test_input: List[int], expected: str):
+    def test_generate_list_node(self, test_input: list[int], expected: str):
         head = Util.generate_list_node(test_input)
         actual = Util.list_node_to_string(head)
         assert expected == actual
@@ -99,7 +99,7 @@ class TestUtil:
             (None, []),
         ],
     )
-    def test_list_node_to_list(self, head: ListNode, expected: List[int]):
+    def test_list_node_to_list(self, head: ListNode, expected: list[int]):
         actual = Util.list_node_to_list(head)
         assert expected == actual
 
@@ -116,7 +116,9 @@ class TestUtil:
     def test_generate_tree_node(self, nums, expected):
         actual_root = Util.generate_tree_node(nums)
 
-        def assert_tree_nodes_equal(node1: TreeNode, node2: TreeNode) -> bool:
+        def assert_tree_nodes_equal(
+            node1: TreeNode | None, node2: TreeNode | None
+        ) -> bool:
             if not node1 and not node2:
                 return True
             elif (not node1 or not node2) or node1.val != node2.val:
@@ -128,20 +130,20 @@ class TestUtil:
         assert assert_tree_nodes_equal(actual_root, expected)
 
     def test_generate_n_tree_node_empty_list(self):
-        nums = []
-        root = Util.generate_n_tree_node(nums)
+        nums: list[int | None] = []
+        root: Node | None = Util.generate_n_tree_node(nums)
         assert root is None
 
     def test_generate_n_tree_node_single_node(self):
-        nums = [1]
-        root = Util.generate_n_tree_node(nums)
+        nums: list[int | None] = [1]
+        root: Node | None = Util.generate_n_tree_node(nums)
         assert root is not None
         assert root.val == 1
         assert len(root.children) == 0
 
     def test_generate_n_tree_node_multiple_nodes(self):
-        nums = [1, None, 2, 3, None, 4, 5, 6]
-        root = Util.generate_n_tree_node(nums)
+        nums: list[int | None] = [1, None, 2, 3, None, 4, 5, 6]
+        root: Node | None = Util.generate_n_tree_node(nums)
         assert root is not None
         assert root.val == 1
         assert len(root.children) == 2

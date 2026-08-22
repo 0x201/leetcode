@@ -1,8 +1,7 @@
-from typing import List
 
 
 class InterviewSolution:
-    def rotate_matrix(self, matrix: List[List[int]]):
+    def rotate_matrix(self, matrix: list[list[int]]):
         """Interview 01.07 Rotate Matrix LCCI"""
 
         n = len(matrix)

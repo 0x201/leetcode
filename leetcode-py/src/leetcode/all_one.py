@@ -1,30 +1,27 @@
-from typing import Optional
 
 
-class Node(object):
-    def __init__(self, key="", count=0):
-        self.prev = Optional[Node]
-        self.next = Optional[Node]
-        self.keys = {key}
-        self.count = count
+class Node:
+    def __init__(self, key: str = "", count: int = 0):
+        self.prev: Node = self
+        self.next: Node = self
+        self.keys: set[str] = set() if key == "" else {key}
+        self.count: int = count
 
-    def insert(self, node: "Node") -> "Node":
+    def insert(self, node: Node) -> Node:
         node.prev = self
         node.next = self.next
         node.prev.next = node
         node.next.prev = node
         return node
 
-    def remove(self):
+    def remove(self) -> None:
         self.prev.next = self.next
         self.next.prev = self.prev
 
 
-class AllOne(object):
+class AllOne:
     def __init__(self):
         self.root = Node()
-        self.root.prev = self.root
-        self.root.next = self.root
         self.nodes: dict[str, Node] = {}
 
     def inc(self, key: str) -> None:
@@ -48,10 +45,10 @@ class AllOne(object):
 
     def dec(self, key: str) -> None:
         curr = self.nodes[key]
+        pre = curr.prev
         if curr.count == 1:
             del self.nodes[key]
         else:
-            pre = curr.prev
             if pre is self.root or pre.count < curr.count - 1:
                 self.nodes[key] = curr.prev.insert(Node(key, curr.count - 1))
             else:

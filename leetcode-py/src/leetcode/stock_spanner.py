@@ -1,10 +1,9 @@
-from typing import List
 from math import inf
 
 
 class StockSpanner:
     def __init__(self) -> None:
-        self.stack: List = [(-1, inf)]
+        self.stack: list = [(-1, inf)]
         self.index: int = -1
 
     def next(self, price: int) -> int:

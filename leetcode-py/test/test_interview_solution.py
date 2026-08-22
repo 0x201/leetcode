@@ -1,7 +1,7 @@
-from typing import List
+
+import pytest
 
 from src.leetcode.interview_solution import InterviewSolution
-import pytest
 
 
 class TestInterviewSolution:
@@ -19,7 +19,7 @@ class TestInterviewSolution:
             ),
         ],
     )
-    def test_rotate(self, test_input: List[List[int]], expected: List[List[int]]):
+    def test_rotate(self, test_input: list[list[int]], expected: list[list[int]]):
         self.solution.rotate_matrix(test_input)
         assert test_input == expected
 

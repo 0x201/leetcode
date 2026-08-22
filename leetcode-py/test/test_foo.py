@@ -1,5 +1,4 @@
 import asyncio
-from typing import List
 
 import pytest
 
@@ -22,7 +21,6 @@ class TestFoo:
 
         return print_first, print_second, print_third, result
 
-
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
         "nums, expected",
@@ -35,7 +33,7 @@ class TestFoo:
             ([3, 2, 1], "firstsecondthird"),
         ],
     )
-    async def test_foo(self, nums: List[int], expected: str, print_functions) -> None:
+    async def test_foo(self, nums: list[int], expected: str, print_functions) -> None:
         print_first, print_second, print_third, result = print_functions
         foo = Foo()
 
