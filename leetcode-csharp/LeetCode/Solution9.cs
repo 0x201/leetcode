@@ -360,7 +360,7 @@ public partial class Solution
     public static bool AreAlmostEqual(string s1, string s2)
     {
         int n = s1.Length;
-        IList<int> diff = new List<int>();
+        IList<int> diff = [];
         for (int i = 0; i < n; i++)
         {
             if (s1[i] == s2[i]) continue;

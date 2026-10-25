@@ -143,7 +143,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<string> FindWords(char[][] board, string[] words)
     {
-        IList<string> res = new List<string>();
+        IList<string> res = [];
         TrieNode root = BuildTrie(words);
         int m = board.Length, n = board[0].Length;
         for (int i = 0; i < m; i++)

@@ -315,7 +315,7 @@ public partial class Solution
             char c = s[i];
             if (!index.TryGetValue(c, out IList<int> value))
             {
-                value = new List<int> { -1 };
+                value = [-1];
                 index.Add(c, value);
             }
 
@@ -712,7 +712,7 @@ public partial class Solution
         var group = new IList<int>[n + 1];
         for (int i = 0; i <= n; i++)
         {
-            group[i] = new List<int>();
+            group[i] = [];
         }
 
         foreach (int[] p in dislikes)

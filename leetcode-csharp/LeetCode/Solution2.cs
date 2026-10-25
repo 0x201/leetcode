@@ -10,7 +10,7 @@ public partial class Solution
     /// </summary>
     public static IList<string> ReadBinaryWatch(int turnedOn)
     {
-        IList<string> ans = new List<string>();
+        IList<string> ans = [];
         for (int i = 0; i < 1024; ++i)
         {
             int h = i >> 6, m = i & 63;
@@ -40,7 +40,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<string> FizzBuzz(int n)
     {
-        IList<string> answer = new List<string>();
+        IList<string> answer = [];
         for (int i = 1; i <= n; i++)
         {
             var sb = new StringBuilder();
@@ -94,7 +94,7 @@ public partial class Solution
     /// </summary>
     public static IList<IList<int>> LevelOrder(Node root)
     {
-        IList<IList<int>> res = new List<IList<int>>();
+        IList<IList<int>> res = [];
         if (root == null)
         {
             return res;
@@ -105,7 +105,7 @@ public partial class Solution
         while (queue.Any())
         {
             int size = queue.Count;
-            IList<int> tmp = new List<int>();
+            IList<int> tmp = [];
             for (int i = 0; i < size; i++)
             {
                 Node curr = queue.Peek();
@@ -750,7 +750,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<int> PreOrder(Node root)
     {
-        IList<int> ans = new List<int>();
+        IList<int> ans = [];
         Dfs(root);
         return ans;
 
@@ -776,7 +776,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<int> PostOrder(Node root)
     {
-        IList<int> ans = new List<int>();
+        IList<int> ans = [];
         Dfs(root);
         return ans;
 
@@ -810,7 +810,7 @@ public partial class Solution
             index.Add(list1[i], i);
         }
 
-        IList<string> ret = new List<string>();
+        IList<string> ret = [];
         int indexSum = int.MaxValue;
         for (int i = 0; i < list2.Length; i++)
         {

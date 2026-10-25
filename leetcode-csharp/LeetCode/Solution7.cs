@@ -106,7 +106,7 @@ public partial class Solution
     {
         int n = grid.Length, m = grid[0].Length;
         // use array
-        IList<IList<int>> res = new List<IList<int>>();
+        IList<IList<int>> res = [];
         if (n == 0)
         {
             return res;
@@ -148,11 +148,11 @@ public partial class Solution
     /// <returns></returns>
     public static IList<int> GetAllElements(TreeNode root1, TreeNode root2)
     {
-        IList<int> nums1 = new List<int>();
-        IList<int> nums2 = new List<int>();
+        IList<int> nums1 = [];
+        IList<int> nums2 = [];
         Inorder(root1, nums1);
         Inorder(root2, nums2);
-        IList<int> merged = new List<int>();
+        IList<int> merged = [];
         int p1 = 0, p2 = 0;
         while (true)
         {
@@ -233,7 +233,7 @@ public partial class Solution
             }
         }
 
-        IList<int> res = new List<int>();
+        IList<int> res = [];
         for (int i = 0; i < m; i++)
         {
             for (int j = 0; j < n; j++)

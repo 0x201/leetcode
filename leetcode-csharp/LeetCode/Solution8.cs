@@ -14,7 +14,7 @@ public partial class Solution
     {
         Array.Sort(nums);
         int total = nums.Sum();
-        IList<int> ans = new List<int>();
+        IList<int> ans = [];
         int curr = 0;
         for (int i = nums.Length - 1; i >= 0; --i)
         {
@@ -81,7 +81,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<string> BuildArray(int[] target, int n)
     {
-        IList<string> res = new List<string>();
+        IList<string> res = [];
         int prev = 0;
         foreach (int number in target)
         {
@@ -104,7 +104,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<string> SimplifiedFractions(int n)
     {
-        IList<string> res = new List<string>();
+        IList<string> res = [];
         for (int denominator = 2; denominator <= n; ++denominator)
         {
             for (int numerator = 1; numerator < denominator; ++numerator)

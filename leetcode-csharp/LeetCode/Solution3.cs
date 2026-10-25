@@ -158,7 +158,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
     {
-        Dictionary<string, (TreeNode, int)> seen = new();
+        Dictionary<string, (TreeNode, int)> seen = [];
         var repeat = new HashSet<TreeNode>();
         int index = 0;
         Dfs(root);
@@ -1003,7 +1003,7 @@ public partial class Solution
             return true;
         }
 
-        IList<int> ans = new List<int>();
+        IList<int> ans = [];
         for (int i = left; i <= right; i++)
         {
             if (IsSelfDividing(i))

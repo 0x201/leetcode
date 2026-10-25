@@ -7,7 +7,7 @@ public class RandomizedSet
 {
     private List<int> Nums { get; } = [];
 
-    private Dictionary<int, int> Indices { get; } = new();
+    private Dictionary<int, int> Indices { get; } = [];
 
     private Random Random { get; } = new();
 

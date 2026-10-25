@@ -90,7 +90,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<int> TwoOutOfThree(int[] nums1, int[] nums2, int[] nums3)
     {
-        Dictionary<int, int> dic = new();
+        Dictionary<int, int> dic = [];
         foreach (int num in nums1)
         {
             dic.TryAdd(num, 1);
@@ -108,7 +108,7 @@ public partial class Solution
             dic[num] |= 4;
         }
 
-        IList<int> res = new List<int>();
+        IList<int> res = [];
         foreach ((int key, int value) in dic)
         {
             if ((value & (value - 1)) != 0)

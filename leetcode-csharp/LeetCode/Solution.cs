@@ -670,7 +670,7 @@ public partial class Solution
         string[] map = ["0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
         if (string.IsNullOrEmpty(digits))
         {
-            return new List<string>();
+            return [];
         }
 
         var ans = new Queue<string>();
@@ -696,7 +696,7 @@ public partial class Solution
     /// </summary>
     public static IList<IList<int>> FourSum(int[] nums, int target)
     {
-        IList<IList<int>> res = new List<IList<int>>();
+        IList<IList<int>> res = [];
         int n = nums.Length;
         if (n < 4)
         {
@@ -752,7 +752,7 @@ public partial class Solution
                     }
                     else
                     {
-                        res.Add(new List<int> { nums[i], nums[j], nums[left], nums[right] });
+                        res.Add([nums[i], nums[j], nums[left], nums[right]]);
                         do
                         {
                             left++;
@@ -882,7 +882,7 @@ public partial class Solution
     /// </summary>
     public static IList<string> GenerateParenthesis(int n)
     {
-        IList<string> ans = new List<string>();
+        IList<string> ans = [];
         // if (n == 0)
         //     ans.Add("");
         // else
@@ -1173,7 +1173,7 @@ public partial class Solution
     /// </summary>
     public static IList<int> FindSubstring(string s, string[] words)
     {
-        IList<int> ret = new List<int>();
+        IList<int> ret = [];
         if (s.Length == 0 || words.Length == 0)
         {
             return ret;
@@ -1668,7 +1668,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<IList<int>> CombinationSum(int[] candidates, int target)
     {
-        IList<IList<int>> res = new List<IList<int>>();
+        IList<IList<int>> res = [];
         var combine = new List<int>();
         Dfs(candidates, target, res, combine, 0);
         return res;
@@ -1707,7 +1707,7 @@ public partial class Solution
     public static IList<IList<int>> CombinationSum2(int[] candidates, int target)
     {
         var freq = new List<int[]>();
-        IList<IList<int>> ans = new List<IList<int>>();
+        IList<IList<int>> ans = [];
         var sequence = new List<int>();
 
         Array.Sort(candidates);
@@ -1921,9 +1921,9 @@ public partial class Solution
     /// <returns></returns>
     public static IList<IList<int>> Permute(int[] nums)
     {
-        IList<IList<int>> res = new List<IList<int>>();
+        IList<IList<int>> res = [];
         var q = new Queue<IList<int>>();
-        q.Enqueue(new List<int>());
+        q.Enqueue([]);
         foreach (int t in nums)
         {
             int size = q.Count;
@@ -2025,12 +2025,12 @@ public partial class Solution
     {
         if (matrix.Length == 0)
         {
-            return new List<int>() { 0 };
+            return [0];
         }
 
         int startRow = 0, startColumn = 0;
         int height = matrix.Length, width = matrix[0].Length;
-        IList<int> result = new List<int>();
+        IList<int> result = [];
         while (true)
         {
             if (height == 0 || width == 0) // can also use if(index == height * width)
@@ -2412,7 +2412,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<string> FullJustify(string[] words, int maxWidth)
     {
-        IList<string> ans = new List<string>();
+        IList<string> ans = [];
         int right = 0, n = words.Length;
         while (true)
         {
@@ -2655,7 +2655,7 @@ public partial class Solution
     public static IList<IList<int>> Combine(int n, int k)
     {
         var temp = new List<int>();
-        IList<IList<int>> ans = new List<IList<int>>();
+        IList<IList<int>> ans = [];
         for (int i = 1; i <= k; ++i)
         {
             temp.Add(i);
@@ -2760,7 +2760,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<int> InorderTraversal(TreeNode root)
     {
-        IList<int> ret = new List<int>();
+        IList<int> ret = [];
         if (root == null)
         {
             return ret;
@@ -2945,7 +2945,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<IList<int>> LevelOrderBottom(TreeNode root)
     {
-        IList<IList<int>> res = new List<IList<int>>();
+        IList<IList<int>> res = [];
         if (root == null)
         {
             return res;
@@ -3139,8 +3139,8 @@ public partial class Solution
     /// <returns></returns>
     public static IList<IList<int>> PathSum(TreeNode root, int targetSum)
     {
-        IList<IList<int>> res = new List<IList<int>>();
-        IList<int> path = new List<int>();
+        IList<IList<int>> res = [];
+        IList<int> path = [];
         Dfs(root, targetSum);
         return res;
 
@@ -3204,7 +3204,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<IList<int>> Generate(int numRows)
     {
-        IList<IList<int>> triangle = new List<IList<int>>();
+        IList<IList<int>> triangle = [];
         //if (numRows == 0) return triangle;
         //triangle.Add(new List<int>());
         //triangle[0].Add(1);
@@ -3219,7 +3219,7 @@ public partial class Solution
         //}
         for (int i = 0; i < numRows; ++i)
         {
-            IList<int> row = new List<int>();
+            IList<int> row = [];
             for (int r = 1; r <= i + 1; r++)
             {
                 row.Add(1);
@@ -3377,7 +3377,7 @@ public partial class Solution
     /// <returns></returns>
     public static IList<int> PreorderTraversal(TreeNode root)
     {
-        IList<int> res = new List<int>();
+        IList<int> res = [];
         var stack = new Stack<TreeNode>();
         while (root != null)
         {
