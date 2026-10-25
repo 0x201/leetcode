@@ -1,8 +1,9 @@
 package leetcode
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestStockSpanner_Next(t *testing.T) {

@@ -11,28 +11,28 @@ func RandomizedSetConstructor() RandomizedSet {
 	return RandomizedSet{[]int{}, map[int]int{}}
 }
 
-func (rs *RandomizedSet) Insert(val int) bool {
-	if _, ok := rs.indices[val]; ok {
+func (this *RandomizedSet) Insert(val int) bool {
+	if _, ok := this.indices[val]; ok {
 		return false
 	}
-	rs.indices[val] = len(rs.nums)
-	rs.nums = append(rs.nums, val)
+	this.indices[val] = len(this.nums)
+	this.nums = append(this.nums, val)
 	return true
 }
 
-func (rs *RandomizedSet) Remove(val int) bool {
-	id, ok := rs.indices[val]
+func (this *RandomizedSet) Remove(val int) bool {
+	id, ok := this.indices[val]
 	if !ok {
 		return false
 	}
-	last := len(rs.nums) - 1
-	rs.nums[id] = rs.nums[last]
-	rs.indices[rs.nums[id]] = id
-	rs.nums = rs.nums[:last]
-	delete(rs.indices, val)
+	last := len(this.nums) - 1
+	this.nums[id] = this.nums[last]
+	this.indices[this.nums[id]] = id
+	this.nums = this.nums[:last]
+	delete(this.indices, val)
 	return true
 }
 
-func (rs *RandomizedSet) GetRandom() int {
-	return rs.nums[rand.Intn(len(rs.nums))]
+func (this *RandomizedSet) GetRandom() int {
+	return this.nums[rand.Intn(len(this.nums))]
 }
