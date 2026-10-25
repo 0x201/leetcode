@@ -1082,27 +1082,28 @@ class Solution:
     @staticmethod
     def find_duplicate_subtrees(root: TreeNode | None) -> list[TreeNode | None]:
         """652.Find Duplicate Subtrees"""
+        seen: dict[tuple[int, int, int], int] = {}
+        first_node: dict[int, TreeNode] = {}
+        repeat: set[int] = set()
+        idx = 0
 
         def dfs(node: TreeNode | None) -> int:
+            nonlocal idx
             if not node:
                 return 0
 
             triple = (node.val, dfs(node.left), dfs(node.right))
             if triple in seen:
-                (tree, index) = seen[triple]
-                repeat.add(tree)
-                return index
-            else:
-                nonlocal idx
-                idx += 1
-                seen[triple] = (node, idx)
-                return idx
+                i = seen[triple]
+                repeat.add(i)
+                return i
+            idx += 1
+            seen[triple] = idx
+            first_node[idx] = node
+            return idx
 
-        seen = dict()
-        repeat = set()
-        idx = 0
         dfs(root)
-        return list(repeat)
+        return [first_node[i] for i in repeat]
 
     @staticmethod
     def print_tree(root: TreeNode | None) -> list[list[str]]:
