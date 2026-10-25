@@ -15,22 +15,6 @@
         "reveal": "always"
       },
       "group": "build"
-    },
-    {
-      "label": "CargoTestBuild",
-      "command": "cargo",
-      "type": "shell",
-      "args": [
-        "test",
-        "--no-run"
-      ],
-      "problemMatcher": [
-        
-      ],
-      "presentation": {
-        "reveal": "always"
-      },
-      "group": "build"
     }
   ]
 }

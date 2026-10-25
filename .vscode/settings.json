@@ -1,0 +1,9 @@
+{
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "python.testing.pytestEnabled": true,
+    "python.testing.cwd": "${workspaceFolder}/leetcode-py",
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}/leetcode-py"
+    },
+}
