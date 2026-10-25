@@ -11,7 +11,7 @@ export class RandomizedSet {
     if (this.indices.has(val)) {
       return false;
     }
-    let index = this.nums.length;
+    const index = this.nums.length;
     this.nums.push(val);
     this.indices.set(val, index);
     return true;
@@ -21,7 +21,7 @@ export class RandomizedSet {
     if (!this.indices.has(val)) {
       return false;
     }
-    let index = this.indices.get(val);
+    const index = this.indices.get(val);
     this.nums[index!] = this.nums[this.nums.length - 1];
     this.indices.set(this.nums[index!], index!);
     this.nums.pop();
@@ -30,7 +30,7 @@ export class RandomizedSet {
   }
 
   getRandom(): number {
-    let randomIndex = Math.floor(Math.random() * this.nums.length);
+    const randomIndex = Math.floor(Math.random() * this.nums.length);
     return this.nums[randomIndex];
   }
 }
